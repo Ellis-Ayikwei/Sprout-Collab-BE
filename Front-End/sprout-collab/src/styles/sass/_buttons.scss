@@ -1,0 +1,40 @@
+@mixin btn-base {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Optional */
+
+    &:hover {
+        color: #250024;
+    }
+
+
+  }
+  
+  .btn{
+    @include btn-base;
+  }
+  
+  .btn--primary {
+    @include btn-base; /* Inherit properties from the base class */
+    background-color: #4D004C; /* Blue */
+    color: #fff; /* White text */
+  }
+  
+  .btn--secondary {
+    @include btn-base;
+    background-color: #250024;
+    color: #fff;
+  }
+  
+  .btn--outline {
+    @include btn-base;
+    background-color: transparent;
+    border-color: #4D004C; /* Adjust border color as needed */
+    color: #4D004C;
+  }
+  
