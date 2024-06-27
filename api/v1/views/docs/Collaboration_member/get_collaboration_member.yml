@@ -1,0 +1,33 @@
+swagger: '2.0'
+info:
+  title: Get Collaboration Members
+  description: Retrieves information about members of a collaboration.
+  version: 1.0
+tags:
+  - name: Collaboration Member
+paths:
+  /collaborations/{collaboration_id}/members:
+    get:
+      summary: Get all members of a collaboration
+      tags: [Collaboration Members]
+      responses:
+        '200':
+          description: A list of collaboration members
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                member_count:
+                  type: integer
+                members_info:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      profile_picture:
+                        type: string
+        '404':
+          description: Collaboration not found

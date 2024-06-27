@@ -3,6 +3,7 @@
 from flask import Flask, make_response, jsonify
 from api.v1.views import app_views
 from models import storage
+from flasgger import Swagger
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -25,6 +26,14 @@ def not_found(error):
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 
+
+app.config['SWAGGER'] = {
+        'title': 'Sprout Collab Restfull Api',
+        'uiversion': 3
+    }
+
+Swagger(app)
+    
 
 
 if __name__ == "__main__":

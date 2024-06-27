@@ -12,11 +12,13 @@ from sqlalchemy import (
     Enum as sqlEnum
 )
 
-class Goal_members(BaseModel, Base):
+class Goal_member(BaseModel, Base):
     """Class definition for the goal_members"""
     __tablename__ = "goal_members"
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-    goal_id = Column(String(60), ForeignKey("goals.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
+    goal_id = Column(String(60), ForeignKey("goals.id", ondelete='CASCADE'), nullable=False)
+    collab_id = Column(String(60), ForeignKey("collaborations.id", ondelete='CASCADE'), nullable=False)
+
 
     def __init__(self, *args, **kwargs):
         """Initialization of the goal_members"""

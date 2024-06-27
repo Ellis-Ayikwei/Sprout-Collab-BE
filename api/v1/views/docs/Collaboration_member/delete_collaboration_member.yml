@@ -1,0 +1,32 @@
+swagger: '2.0'
+info:
+  title: Delete Collaboration Member
+  description: Deletes a member from a specific collaboration.
+  version: 1.0
+tags:
+  - name:  Collaboration Member
+paths:
+  /collaborations/{collaboration_id}/members:
+    delete:
+      summary: Delete a member from a collaboration
+      tags: [Collaboration Member]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+      responses:
+        '204':
+          description: Member deleted successfully
+        '400':
+          description:
+           - Request data is not in JSON format
+           - Missing 'username' in request data
+           - User does not exist
+           - User is not a member of the collaboration
+        '404':
+          description: Collaboration not found

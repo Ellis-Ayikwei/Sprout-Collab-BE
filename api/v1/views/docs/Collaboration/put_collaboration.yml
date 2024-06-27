@@ -1,0 +1,35 @@
+swagger: '2.0'
+info:
+  title: Update a Collaboration
+  description: Updates a specific collaboration based on its ID.
+  version: 1.0
+tags:
+  - name: Collaboration
+    description: Operations about collaborations
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        # Replace with the actual updatable properties of your Collaboration model
+        properties:
+          # ... (excluding 'id', 'goal_id', 'created_at', 'updated_at')
+paths:
+  /collaborations/{collaboration_id}:
+    put:
+      summary: Update a collaboration
+      tags: [Collaboration]
+      responses:
+        '200':
+          description: Collaboration updated successfully
+          schema:
+            type: object
+            # Replace with the actual properties of your Collaboration model
+            properties:
+                # ...
+        '400':
+          description:
+           - Request data is not in JSON format
+        '404':
+          description: Collaboration not found

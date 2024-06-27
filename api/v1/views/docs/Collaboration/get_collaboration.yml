@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  title: Get a Collaboration
+  description: Retrieves a specific collaboration based on its ID.
+  version: 1.0
+tags:
+  - name: Collaboration
+    description: Operations about collaborations
+paths:
+  /collaborations/{collaboration_id}:
+    get:
+      summary: Get a specific collaboration
+      tags: [Collaboration]
+      responses:
+        '200':
+          description: A collaboration object
+          schema:
+            type: object
+            # Replace with the actual properties of your Collaboration model
+            properties:
+                # ...
+        '404':
+          description: Collaboration not found

@@ -1,0 +1,50 @@
+swagger: '2.0'
+info:
+  title: Add Collaboration Member
+  description: Adds a new member to a collaboration.
+  version: 1.0
+tags:
+  - name: Collaboration Member
+paths:
+  /collaborations/{collaboration_id}/members:
+    post:
+      summary: Add a new member to a collaboration
+      tags: [Collaboration Member]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+      responses:
+        '201':
+          description: Member created successfully
+          schema:
+            type: object
+            # Replace with the actual properties of Collaboration_member model
+            properties:
+              __class__:
+              type: string
+            created_at:
+              type: string
+              description: time of creation of the instance
+            updated_at:
+              type: string
+              description: time of last update of the instance
+            id:
+              type: string
+              description: The uuid of the instance
+            name:
+              type: string
+              description: collaborationmeber name
+        '400':
+          description:
+           - Request data is not in JSON format
+           - Missing 'username' in request data
+           - User does not exist
+           - User is already a member of the collaboration
+        '404':
+          description: Collaboration not found

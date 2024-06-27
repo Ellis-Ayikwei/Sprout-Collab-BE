@@ -1,0 +1,25 @@
+swagger: '2.0'
+info:
+  title: Get Collaborations for a Goal
+  description: Retrieves a list of all collaboration objects associated with a specific Goal.
+  version: 1.0
+tags:
+  - name: Collaboration
+    description: Operations about collaborations
+paths:
+  /goals/{goal_id}/collaborations:
+    get:
+      summary: Get all collaborations of a goal
+      tags: [Collaboration]
+      responses:
+        '200':
+          description: A list of collaboration objects
+          schema:
+            type: array
+            items:
+              type: object
+              # Replace with the actual properties of your Collaboration model
+              properties:
+                # ...
+        '404':
+          description: Goal not found

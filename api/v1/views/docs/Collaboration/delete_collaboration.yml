@@ -1,0 +1,18 @@
+swagger: '2.0'
+info:
+  title: Delete a Collaboration
+  description: Deletes a collaboration based on its ID.
+  version: 1.0
+tags:
+  - name: Collaboration
+    description: Operations about collaborations
+paths:
+  /collaborations/{collaboration_id}:
+    delete:
+      summary: Delete a collaboration
+      tags: [Collaboration]
+      responses:
+        '200':
+          description: Collaboration deleted successfully
+        '404':
+          description: Collaboration not found

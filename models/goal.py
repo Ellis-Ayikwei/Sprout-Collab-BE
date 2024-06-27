@@ -15,6 +15,8 @@ from sqlalchemy import (
     Boolean
 )
 
+from models.collaboration import Collaboration
+
 
 
 class Goal(BaseModel, Base):
@@ -25,10 +27,21 @@ class Goal(BaseModel, Base):
     target_completion_date = Column(DateTime, nullable=True)
     is_public = Column(Boolean, nullable=False)
     type = Column(String(60), ForeignKey("goal_types.id"), nullable=False)
-    projects = relationship("Project", backref="goals")
-    Collaborations = relationship("Collaboration", backref="goals")
-    members = relationship("Goal_members", backref="goals")
+    
+    projects = relationship("Project", backref="goals", cascade="all, delete-orphan")
+    Collaborations = relationship("Collaboration", backref="goals", cascade="all, delete-orphan")
+    members = relationship("Goal_member", backref="goals", cascade="all, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """Initialization of the goal"""
         super().__init__(*args, **kwargs)
+        
+        
+    @property
+    def number_of_collaborations(self):
+        """Returns the count of collaborations for this goal"""
+        return len(self.collaborations)
+
+    def count_collaborations(self, session):
+        """Returns the count of collaborations for this goal using a database session"""
+        return session.query(func.count(Collaboration.id)).filter(Collaboration.goal_id == self.id).scalar()

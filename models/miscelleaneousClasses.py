@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 from enum import Enum
+
 class status(Enum):
     pending = "pending"
-    in_progress = "in progress"
+    started = "started"
     done = "done"
     paused = "paused"
+    
+

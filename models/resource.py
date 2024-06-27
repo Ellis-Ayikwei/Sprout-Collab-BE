@@ -17,15 +17,14 @@ from sqlalchemy import (
 )
 
 
-
-
 class Resource(BaseModel, Base):
     """Class definition for the resources"""
     __tablename__ = "resources"
     collaboration_id = Column(String(60), ForeignKey("collaborations.id"), nullable=False)
     name = Column(String(128), nullable=False)
     url = Column(String(250), nullable=False)
-    visibility = Column(Boolean, nullable=False)
+    visible = Column(Boolean, default=True, nullable=False)
+    uploader = Column(String(60), ForeignKey("users.id"), nullable=False)
     
 
     def __init__(self, *args, **kwargs):

@@ -2,6 +2,7 @@
 """The module for collab members"""
 from models.basemodel import BaseModel, Base
 import sqlalchemy
+from sqlalchemy.orm import relationship
 from sqlalchemy import (
     Column,
     String,
@@ -12,12 +13,14 @@ from sqlalchemy import (
     Enum as sqlEnum
 )
 
-class Collaboration_members(BaseModel, Base):
+class Collaboration_member(BaseModel, Base):
     """Class definition for the Collab_members"""
     __tablename__ = "collaboration_members"
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-    Collaboration_id = Column(String(60), ForeignKey("collaborations.id"), nullable=False)
-    role = Column(sqlEnum('admin', 'member', name='role'), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
+    collaboration_id= Column(String(60), ForeignKey("collaborations.id", ondelete='CASCADE'), nullable=False)
+    role = Column(sqlEnum('admin', 'member', name='role'), default='member', nullable=False)
+    
+    user = relationship("User", backref="collaboration_members")
     
     def __init__(self, *args, **kwargs):
         """Initialization of the collaboration_members"""

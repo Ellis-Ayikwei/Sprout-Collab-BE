@@ -6,15 +6,15 @@ Contains the class DBStorage
 import models
 from models.basemodel import BaseModel, Base
 from models.collaboration import Collaboration
-from models.collaboration_member import Collaboration_members
+from models.collaboration_member import Collaboration_member
 from models.goal import Goal
-from models.goal_member import Goal_members
+from models.goal_member import Goal_member
 from models.goal_type import Goal_type
 from models.project import Project
-from models.project_member import Project_members
+from models.project_member import Project_member
 from models.resource import Resource
 from models.task import Task
-from models.task_member import Task_members
+from models.task_member import Task_member
 from models.user import User
 
 from os import getenv
@@ -25,15 +25,15 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 classes = {
            "Collaboration": Collaboration,
-           "Collaboration_members": Collaboration_members, 
+           "Collaboration_members": Collaboration_member, 
            "Goal": Goal,
-           "Goal_members": Goal_members, 
+           "Goal_members": Goal_member, 
            "Goal_type": Goal_type,
            "Project": Project,
-           "Project_members": Project_members, 
+           "Project_members": Project_member, 
            "Resource": Resource, 
            "Task": Task,
-           "Task_members": Task_members,
+           "Task_members": Task_member,
            "User": User,
            }    
 

@@ -1,0 +1,41 @@
+swagger: '2.0'
+info:
+  title: Create a Collaboration
+  description: Creates a new collaboration associated with a specific Goal.
+  version: 1.0
+tags:
+  - name: Collaboration
+    description: Operations about collaborations
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name  # Assuming 'name' is a required field
+        properties:
+          name:
+            type: string
+          # Add other properties of the Collaboration model here
+          # ...
+paths:
+  /goals/{goal_id}/collaborations:
+    post:
+      summary: Create a new collaboration
+      tags: [Collaboration]
+      responses:
+        '201':
+          description: Collaboration created successfully
+          schema:
+            type: object
+            # Replace with the actual properties of your Collaboration model
+            properties:
+                # ...
+        '400':
+          description:
+            - Request data is not in JSON format
+            - Missing required field(s)
+            - Goal not found
+        '404':
+          description: Goal not found
