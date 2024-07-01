@@ -28,7 +28,8 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     skills = Column(JSON, nullable=True)
     resource = relationship("Resource", backref="users")
-    
+    profile_picture = Column(String(255), nullable=True)
+
     def __init__(self, *args, **kwargs):
         """Initialization of the user"""
         super().__init__(*args, **kwargs)

@@ -144,6 +144,18 @@ def add_projects(goal_ids, collab_ids):
         new_prject.save()
     print("projects added successfully")
 
+def add_project_member(project_ids,user_ids, goal_ids):
+    for i in range(9):
+        new_project_member = Project_member(
+                project_id = project_ids[i],
+                goal_id = goal_ids[i],
+                user_id = user_ids[i]
+        )
+        new_project_member.save()
+    print("project members added sucessfully")
+
+add_project_member(project_ids,user_ids, goal_ids)
+
 #add_projects( goal_ids, collab_ids)
 
 
@@ -190,8 +202,25 @@ def new_task_member(task_ids, user_ids, project_ids):
         new_task_member.save()
     print("new task member added")
 
+def new_collab_m(user_ids, collab_ids):
+    for i in range(10):
+        for j in range(len(user_ids)):
+            new_collab_m = Collaboration_member(
+                           user_id = user_ids[i],
+                           collaboration_id = collab_ids[i]
+                           )
+            new_collab_m.save()
+    print("new c member added")
 
-new_task_member(task_ids, user_ids, project_ids)
+#new_collab_m(user_ids, collab_ids)
+
+#new_task_member(task_ids, user_ids, project_ids)
+#def new_goal_member(user_ids, goal_ids, collab_ids):
+ #   for i in range(10):
+  #      new_goal_member = Goal_member(
+   #             user_id = user_ids[i],
+    #            goal_id = goal_ids[i],
+     #           collab_id = collab_ids[i]
 
 # ##new collab member
 # new_collab_member = Collaboration_member(user_id=user_ids[4], 

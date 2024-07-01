@@ -8,7 +8,7 @@ from models import storage
 @app_views.route("/status")
 def status():
     """to check the status of the api"""
-    return jsonify({'status' : 'ok you are connected to sprout collab'})
+    return jsonify({'status' : 'ok you are connected to sprout collab1 api'})
 
 
 @app_views.route("/stats")
