@@ -27,7 +27,7 @@ class Project(BaseModel, Base):
     start_date = Column(Date, nullable=False)
     end_date = Column(Date, nullable=False) 
     status = Column(sqlEnum(status), name="status", default=status.pending, nullable=False)
-    progress = Column(Integer, default=0, nullable=False)
+    progress = Column(Integer, default=0, nullable=True)
     no_of_members_done = Column(Integer, default=0, nullable=True)
 
     
