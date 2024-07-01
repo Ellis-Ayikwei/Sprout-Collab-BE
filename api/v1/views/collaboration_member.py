@@ -13,7 +13,7 @@ from api.v1.views.collaboration import get_collaborations
 
 
 
-@app_views.route('/collaborations/<collaboration_id>/members', methods=['GET'],
+@app_views.route('/collaborations/<collaboration_id>/collaboration_members', methods=['GET'],
                  strict_slashes=False)
 @swag_from('docs/Collaboration_member/get_collaboration_member.yml', methods=['GET'])
 def get_collaboration_members(collaboration_id):
@@ -21,15 +21,15 @@ def get_collaboration_members(collaboration_id):
     Retrieves the list of all collaboration_members objects
     of a specific Collaboration_member, or a specific collaboration
     """
-    
     collaboration = storage.get(Collaboration, collaboration_id)
     if not collaboration:
         abort(404, description="Collaboration not found")
-    
+    collab_members = [] 
     usernames_and_profiles = []
     
     for member in collaboration.members:
-        user = storage.get(User, member.user_id)  # Fetch associated User details
+        collab_members.append(member.to_dict())
+        user = storage.get(User, member.user_id) 
         if user:
             username = user.username
             profile_pic = user.profile_picture
@@ -46,7 +46,7 @@ def get_collaboration_members(collaboration_id):
     return jsonify({
         "member_count": member_count,
         "members_info": usernames_and_profiles
-    })
+    },collab_members)
 
 # @app_views.route('/collaboration_members/<collaboration_id>/', methods=['GET'], strict_slashes=False)
 # def get_collaboration(collaboration_id):

@@ -3,7 +3,7 @@
 from flask import Blueprint
 from models import storage
 
-app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
+app_views = Blueprint('app_views', __name__, url_prefix='/sc/api/v1')
 
 """Import for the views"""
 from api.v1.views.index import *
