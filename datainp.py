@@ -10,6 +10,7 @@ from models.task_member import Task_member
 from models.user import User
 from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
+from models.project_member  import Project_member
 
 storage.close()
 storage.reload()
