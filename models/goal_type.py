@@ -5,11 +5,7 @@ import uuid
 import sqlalchemy
 from sqlalchemy import (
     Column,
-    String,
-    DateTime,
-    ForeignKey,
-    Integer,
-    Boolean
+    String
 )
 
 
