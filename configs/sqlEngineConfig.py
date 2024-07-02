@@ -1,8 +1,8 @@
 import sqlalchemy
 from sqlalchemy import create_engine
 """Instantiate a DBStorage object"""
-SC_MYSQL_USER = "ellis"
-SC_MYSQL_PWD = "Toshib123"
+SC_MYSQL_USER = "Ellis"
+SC_MYSQL_PWD = "Vagrant"
 SC_MYSQL_HOST = "localhost"
 SC_MYSQL_DB = "sprout_collab_db"
 SC_MYSQL_PORT = 3306
