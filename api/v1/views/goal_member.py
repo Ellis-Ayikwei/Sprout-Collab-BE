@@ -2,6 +2,7 @@
 """ objects that handles all default RestFul API actions for goal_members """
 from models.collaboration import Collaboration
 from models.goal_member import Goal_member
+from models.goal import Goal
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
@@ -18,7 +19,7 @@ def get_goal_members(goal_id):
     of a specific Goal_member, or a specific collaboration
     """
     list_goal_members = []
-    goal = storage.get(Goal_member, goal_id)
+    goal = storage.get(Goal, goal_id)
     if not goal:
         abort(404)
     for member in goal.members:
