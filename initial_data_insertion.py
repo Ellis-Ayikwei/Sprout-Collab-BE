@@ -2,6 +2,7 @@
 from colorama import init, Fore, Style
 from models.task import Task
 from models.goal import Goal
+from models.goal_member import Goal_member
 from models import storage
 from models.goal_type import Goal_type
 from datetime import date as dt
@@ -171,7 +172,13 @@ def new_collab_m(user_ids, collab_ids):
             user_id = user_ids[i],
             collaboration_id = collab_ids[i]
         )
+       
         new_collab_m.save()
+        new_goal_m =  Goal_member(
+            user_id =user_ids[i],
+            goal_id = new_collab_m.collaborations.goal_id 
+        )
+        new_goal_m.save()
     print(f"{Fore.BLUE}new c member added")
 
 
