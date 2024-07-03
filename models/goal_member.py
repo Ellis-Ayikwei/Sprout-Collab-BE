@@ -29,3 +29,19 @@ class Goal_member(BaseModel, Base):
     def __init__(self, *args, **kwargs):
         """Initialization of the goal_members"""
         super().__init__(*args, **kwargs)
+        
+    def __init__(self, *args, **kwargs):
+        """Initialization of the task"""
+        super().__init__(*args, **kwargs)
+        if "status" in kwargs:
+            if kwargs["status"] in status:
+                self.status = status[kwargs["status"]]
+
+    def to_dict(self):
+        """Return a dictionary representation of the task, ensuring enum conversion"""
+        dict_rep = super().to_dict()
+        if isinstance(self.status, status):
+            dict_rep["status"] = self.status.name
+        else:
+            dict_rep["status"] = self.status
+        return dict_rep
