@@ -13,13 +13,9 @@ from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
 from models.project_member  import Project_member
 
-<<<<<<< HEAD:datainp.py
 #storage.close()
-=======
 init(autoreset=True)
 
-storage.close()
->>>>>>> refs/remotes/origin/main:initial_data_insertion.py
 storage.reload()
 
 def add_new_users():
@@ -171,12 +167,11 @@ def new_task_member(task_ids, user_ids, project_ids):
 
 def new_collab_m(user_ids, collab_ids):
     for i in range(len(collab_ids)):
-        for j in range(len(user_ids)):
-            new_collab_m = Collaboration_member(
-                           user_id = user_ids[i],
-                           collaboration_id = collab_ids[i]
-                           )
-            new_collab_m.save()
+        new_collab_m = Collaboration_member(
+            user_id = user_ids[i],
+            collaboration_id = collab_ids[i]
+        )
+        new_collab_m.save()
     print(f"{Fore.BLUE}new c member added")
 
 
