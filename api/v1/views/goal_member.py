@@ -13,7 +13,7 @@ from flasgger.utils import swag_from
 
 @app_views.route('goal_members', methods=['GET'],
                  strict_slashes=False)
-def get_all_members(goal_id):
+def get_all_members():
     """
     Retrieves the list of all goal_members objects
     """
