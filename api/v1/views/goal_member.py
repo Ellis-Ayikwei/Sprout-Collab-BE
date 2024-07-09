@@ -11,6 +11,19 @@ from flasgger.utils import swag_from
 
 
 
+@app_views.route('goal_members', methods=['GET'],
+                 strict_slashes=False)
+def get_all_members(goal_id):
+    """
+    Retrieves the list of all goal_members objects
+    """
+    goal_members = storage.all(Goal_member)
+    if not goal_members:
+        abort(404)
+
+    return jsonify(goal_members.dict())
+
+
 @app_views.route('/goals/<goal_id>/goal_members', methods=['GET'],
                  strict_slashes=False)
 def get_goal_members(goal_id):
