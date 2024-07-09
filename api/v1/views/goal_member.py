@@ -17,11 +17,14 @@ def get_all_members():
     """
     Retrieves the list of all goal_members objects
     """
-    goal_members = storage.all(Goal_member)
+    goal_members = storage.all(Goal_member).values()
     if not goal_members:
         abort(404)
+    list_goals_m = []
+    for goal in all_goals:
+        list_goals_m.append(goal.to_dict())
 
-    return jsonify(goal_members.dict())
+    return jsonify(goal_members_m)
 
 
 @app_views.route('/goals/<goal_id>/goal_members', methods=['GET'],
