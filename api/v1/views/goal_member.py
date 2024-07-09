@@ -21,8 +21,8 @@ def get_all_members():
     if not goal_members:
         abort(404)
     list_goals_m = []
-    for goal in all_goals:
-        list_goals_m.append(goal.to_dict())
+    for goal_m in goal_members:
+        list_goals_m.append(goal_m.to_dict())
 
     return jsonify(goal_members_m)
 
