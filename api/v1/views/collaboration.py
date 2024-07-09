@@ -10,7 +10,7 @@ from flask import abort, jsonify, make_response, request
 
 
 @app_views.route('/collaborations', methods=['GET'], strict_slashes=False)
-def get_collaborations():
+def get_all_collaborations():
     """
     Retrieves the list of all collaborations.
     """
