@@ -24,7 +24,7 @@ def get_all_members():
     for goal_m in goal_members:
         list_goals_m.append(goal_m.to_dict())
 
-    return jsonify(goal_members_m)
+    return jsonify(list_goals_m)
 
 
 @app_views.route('/goals/<goal_id>/goal_members', methods=['GET'],
