@@ -9,7 +9,19 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
+@app_views.route('/tasks', methods=['GET'], strict_slashes=False)
+def get_all_tasks():
+    """
+    Retrieves the list of all tasks.
+    """
+    tasks = storage.all(Task).values()
+    
+    if not tasks:
+        abort(404)
 
+    task_dicts = [task.to_dict() for task in tasks]
+
+    return jsonify(task_dicts)
 
 @app_views.route('/projects/<project_id>/tasks', methods=['GET'],
                  strict_slashes=False)

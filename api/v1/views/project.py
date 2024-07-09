@@ -8,7 +8,18 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
+@app_views.route('/projects', methods=['GET'], strict_slashes=False)
+def get_all_projects():
+    """
+    Retrieves the list of all projects.
+    """
+    projects = storage.all(Project).values()
+    if not projects:
+        abort(404)
 
+    project_dicts = [project.to_dict() for project in projects]
+
+    return jsonify(project_dicts)
 
 @app_views.route('/collaborations/<collaboration_id>/projects', methods=['GET'],
                  strict_slashes=False)

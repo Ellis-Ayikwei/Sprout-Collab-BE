@@ -10,6 +10,20 @@ from flasgger.utils import swag_from
 
 
 
+@app_views.route('/project_members', methods=['GET'], strict_slashes=False)
+def get_all_project_members():
+    """
+    Retrieves the list of all project members.
+    """
+    project_members = storage.all(Project_member).values()
+
+    if not project_members:
+        return jsonify([])
+
+    project_member_dicts = [project_member.to_dict() for project_member in project_members]
+
+    return jsonify(project_member_dicts)
+
 
 @app_views.route('/projects/<project_id>/project_members', methods=['GET'],
                  strict_slashes=False)

@@ -9,6 +9,20 @@ from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 
 
+@app_views.route('/collaborations', methods=['GET'], strict_slashes=False)
+def get_collaborations():
+    """
+    Retrieves the list of all collaborations.
+    """
+    collaborations = storage.all(Collaboration).values()
+    if not collaborations:
+        abort(404)
+
+    collaboration_dicts = [collaboration.to_dict() for collaboration in collaborations]
+
+    return jsonify(collaboration_dicts)
+
+
 @app_views.route('/goals/<goal_id>/collaborations', methods=['GET'],
                  strict_slashes=False)
 def get_collaborations(goal_id):

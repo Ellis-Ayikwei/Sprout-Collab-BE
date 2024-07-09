@@ -9,7 +9,19 @@ from flasgger.utils import swag_from
 from api.v1.views.helper_functions import get_user_id_from_all_user
 
 
+@app_views.route('/task_members', methods=['GET'], strict_slashes=False)
+def get_all_task_members():
+    """
+    Retrieves the list of all task members.
+    """
+    task_members = storage.all(Task_member).values()
 
+    if not task_members:
+        abort(404)
+
+    task_member_dicts = [task_member.to_dict() for task_member in task_members]
+
+    return jsonify(task_member_dicts)
 
 @app_views.route('/tasks/<task_id>/task_members', methods=['GET'],
                  strict_slashes=False)

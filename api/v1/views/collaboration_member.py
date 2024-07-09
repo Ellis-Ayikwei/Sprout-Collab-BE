@@ -13,6 +13,23 @@ from api.v1.views.collaboration import get_collaborations
 
 
 
+
+@app_views.route('/collaboration_members', methods=['GET'], strict_slashes=False)
+def get_all_collaboration_members():
+    """
+    Retrieves the list of all collaboration members.
+    """
+    collaboration_members = storage.all(Collaboration_member).values()
+    if not collaboration_members:
+        abort(404)
+
+    collaboration_member_dicts = [
+        collaboration_member.to_dict() for collaboration_member in collaboration_members
+    ]
+
+    return jsonify(collaboration_member_dicts)
+
+
 @app_views.route('/collaborations/<collaboration_id>/collaboration_members', methods=['GET'],
                  strict_slashes=False)
 @swag_from('docs/Collaboration_member/get_collaboration_member.yml', methods=['GET'])
