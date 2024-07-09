@@ -24,7 +24,7 @@ class Goal(BaseModel, Base):
     __tablename__ = 'goals'
     name = Column(String(128), nullable=False)
     description = Column(String(128), nullable=False)
-    target_completion_date = Column(DateTime, nullable=True)
+    duration = Column(Integer, nullable=True)
     is_public = Column(Boolean, nullable=False)
     type = Column(String(60), ForeignKey("goal_types.id"), nullable=False)
     

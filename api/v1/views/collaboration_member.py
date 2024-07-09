@@ -38,15 +38,12 @@ def get_collaboration_members(collaboration_id):
                 "profile_picture": profile_pic
             })
     
-    member_count = len(usernames_and_profiles)
+   # member_count = len(usernames_and_profiles)
     
-    if member_count == 0:
-        abort(400, description="No members yet")
+  #  if member_count == 0:
+       # abort(400, description="No members yet")
     
-    return jsonify({
-        "member_count": member_count,
-        "members_info": usernames_and_profiles
-    },collab_members)
+    return jsonify(collab_members)
 
 # @app_views.route('/collaboration_members/<collaboration_id>/', methods=['GET'], strict_slashes=False)
 # def get_collaboration(collaboration_id):

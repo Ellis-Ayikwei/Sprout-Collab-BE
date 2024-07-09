@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for project_members """
-from models.project import Collaboration
+from models.project import Project
+from models.collaboration import Collaboration
 from models.project_member import Project_member
 from models import storage
 from api.v1.views import app_views
@@ -18,7 +19,7 @@ def get_project_members(project_id):
     of a specific Project_member, or a specific project
     """
     list_project_members = []
-    project = storage.get(Project_member, project_id)
+    project = storage.get(Project, project_id)
     if not project:
         abort(404)
     for member in project.members:
@@ -27,19 +28,19 @@ def get_project_members(project_id):
     return jsonify(list_project_members)
 
 
-@app_views.route('/project_members/<project_id>/', methods=['GET'], strict_slashes=False)
-def get_project(project_id):
+@app_views.route('/project_members/<project_member_id>/', methods=['GET'], strict_slashes=False)
+def get_project_member(project_member_id):
     """
     Retrieves a specific project based on id
     """
-    project_member = storage.get(Project_member, project_id)
+    project_member = storage.get(Project_member, project_member_id)
     if not project_member:
         abort(404)
     return jsonify(project_member.to_dict())
 
 
 @app_views.route('/project_members/<project_member_id>', methods=['DELETE'], strict_slashes=False)
-def delete_project(project_member_id):
+def delete_project_member(project_member_id):
     """
     Deletes a project based on id provided
     """
@@ -55,12 +56,12 @@ def delete_project(project_member_id):
 
 @app_views.route('/projects/<project_id>/project_members', methods=['POST'],
                  strict_slashes=False)
-def post_project(project_id):
+def post_project_member(project_id):
     """
     Creates a Collaboration
     """
     
-    project = storage.get(Project_member, project_id)
+    project = storage.get(Project, project_id)
     if not project:
         abort(404)
     if not request.get_json():
@@ -77,7 +78,7 @@ def post_project(project_id):
 
 
 # @app_views.route('/project_members/<project_id>', methods=['PUT'], strict_slashes=False)
-# def put_project(project_id):
+# def put_project_member(project_id):
 #     """
 #     Updates a Collaboration
 #     """
