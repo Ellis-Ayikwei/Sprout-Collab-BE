@@ -9,6 +9,16 @@ from flask import abort, jsonify, make_response, request
 from models.resource import Resource
 
 
+@app_views.route('/resources', methods=['GET'], strict_slashes=False)
+def get_all_resources():
+    """
+    Retrieves the list of all resources.
+    """
+    all_resources = storage.all(Resource).values()
+    formatted_resources = [resource.to_dict() for resource in all_resources]
+    return jsonify(formatted_resources)
+
+
 @app_views.route('/collaborations/<collaboration_id>/resources', methods=['GET'],
                  strict_slashes=False)
 def get_resources(collaboration_id):
