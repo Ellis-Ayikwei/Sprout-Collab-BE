@@ -9,7 +9,30 @@ from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
 
 
+@app_views.route('/goals/mygoals/<user_id>', methods=['GET'], strict_slashes=False)
+def get_goals_by_user(user_id):
+    """
+    Retrieves the list of goals that a user is a member of.
+    """
+    goal_members = storage.all(Goal_member).values()
+    goals = storage.all(Goal).values()
 
+    # Filter goal members first to find those related to the user
+    user_goal_members = [goal_member for goal_member in goal_members if goal_member.user_id == user_id]
+
+    # Construct the response with goal details and goal member details
+    user_goals_info = []
+    for goal_member in user_goal_members:
+        goal_info = next((goal.to_dict() for goal in goals if goal.id == goal_member.goal_id), None)
+        if goal_info:
+            goal_member_info = goal_member.to_dict()
+            # Combine goal info and goal member info in the response
+            user_goals_info.append({
+                'goal': goal_info,
+                'goal_member': goal_member_info
+            })
+
+    return jsonify(user_goals_info)
 
 @app_views.route('goal_members', methods=['GET'],
                  strict_slashes=False)
