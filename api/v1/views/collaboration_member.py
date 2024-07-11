@@ -12,7 +12,33 @@ from api.v1.views.user import get_users
 from api.v1.views.collaboration import get_collaborations
 
 
+@app_views.route('/collaborations/mycollaborations/<user_id>', methods=['GET'], strict_slashes=False)
+def get_my_collaborations(user_id):
+    """
+    Retrieves the list of collaborations that a user is a member of.
+    """
+    collaborations = storage.all(Collaboration).values()
+    collaboration_members = storage.all(Collaboration_member).values()
 
+    # Index collaborations by ID for efficient lookup
+    collaborations_by_id = {collaboration.id: collaboration for collaboration in collaborations}
+
+    # Filter collaboration_members first to find those related to the user
+    user_collaboration_members = [collaboration_member for collaboration_member in collaboration_members if collaboration_member.user_id == user_id]
+
+    # Construct the response with collaboration details and collaboration member details
+    user_collaborations_info = []
+    for collaboration_member in user_collaboration_members:
+        if collaboration_member.collaboration_id in collaborations_by_id:
+            collaboration_info = collaborations_by_id[collaboration_member.collaboration_id].to_dict()
+            collaboration_member_info = collaboration_member.to_dict()
+            # Combine collaboration info and collaboration member info in the response
+            user_collaborations_info.append({
+                'collaboration': collaboration_info,
+                'collaboration_member': collaboration_member_info
+            })
+
+    return jsonify(user_collaborations_info)
 
 @app_views.route('/collaboration_members', methods=['GET'], strict_slashes=False)
 def get_all_collaboration_members():

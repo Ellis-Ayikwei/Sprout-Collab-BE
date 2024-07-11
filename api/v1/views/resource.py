@@ -9,6 +9,9 @@ from flask import abort, jsonify, make_response, request
 from models.resource import Resource
 
 
+
+
+
 @app_views.route('/resources', methods=['GET'], strict_slashes=False)
 def get_all_resources():
     """
