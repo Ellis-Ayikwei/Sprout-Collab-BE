@@ -9,6 +9,35 @@ from flasgger.utils import swag_from
 from api.v1.views.helper_functions import get_user_id_from_all_user
 
 
+
+@app_views.route('/tasks/mytasks/<user_id>', methods=['GET'], strict_slashes=False)
+def get_my_tasks(user_id):
+    """
+    Retrieves the list of tasks that a user is a member of.
+    """
+    tasks = storage.all(Task).values()
+    task_members = storage.all(Task_member).values()
+
+    # Index tasks by ID for efficient lookup
+    tasks_by_id = {task.id: task for task in tasks}
+
+    # Filter task_members first to find those related to the user
+    user_task_members = [task_member for task_member in task_members if task_member.user_id == user_id]
+
+    # Construct the response with task details and task member details
+    user_tasks_info = []
+    for task_member in user_task_members:
+        if task_member.task_id in tasks_by_id:
+            task_info = tasks_by_id[task_member.task_id].to_dict()
+            task_member_info = task_member.to_dict()
+            # Combine task info and task member info in the response
+            user_tasks_info.append({
+                'task': task_info,
+                'task_member': task_member_info
+            })
+
+    return jsonify(user_tasks_info)
+
 @app_views.route('/task_members', methods=['GET'], strict_slashes=False)
 def get_all_task_members():
     """
