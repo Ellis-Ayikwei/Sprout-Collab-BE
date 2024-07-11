@@ -148,6 +148,15 @@ def add_project_member(project_ids,user_ids, goal_ids):
         new_project_member.save()
     print(f"{Fore.BLUE}project members added sucessfully")
 
+def add_a_project_member():
+        new_project_member = Project_member(
+                project_id = "2989eb26-3f9d-4d77-911d-9e45622d2731",
+                goal_id = "f0167af6-919c-4ad2-a4d0-ea594830f2df",
+                user_id = "1857a37b-0afe-4ceb-a05f-867fa9918de7"
+        )
+        new_project_member.save()
+    print(f"{Fore.BLUE}project members added sucessfully")
+
 
 
 
@@ -190,6 +199,16 @@ def new_task_member(task_ids, user_ids, project_ids):
         )
         new_task_member.save()
     print(f"{Fore.BLUE}new task member added")
+    
+def new_a_task_member():
+        new_task_member = Task_member(
+            user_id="1857a37b-0afe-4ceb-a05f-867fa9918de7",
+            task_id="23b02210-59ec-412a-a5ed-0a6680922a22",
+            project_id = "2989eb26-3f9d-4d77-911d-9e45622d2731"
+        )
+        new_task_member.save()
+    print(f"{Fore.BLUE}new task member added")
+
 
 def new_collab_m(user_ids, collab_ids):
     for i in range(len(collab_ids)):
@@ -274,8 +293,11 @@ if __name__ == "__main__":
         #new_task_member(task_ids, user_ids, project_ids)
         
        # add_collab_m("2e26b04d-4ada-4807-94f7-611d035a9242", collab_ids[4])
-        add_a_collab(user_ids)
+        # add_a_collab(user_ids)
         #add_a_projects(goal_ids)
+        add_a_project_member()
+        new_a_task_member()
+        
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
