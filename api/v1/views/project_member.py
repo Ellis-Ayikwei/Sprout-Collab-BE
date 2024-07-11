@@ -13,21 +13,30 @@ from flasgger.utils import swag_from
 @app_views.route('/project/myprojects/<user_id>', methods=['GET'], strict_slashes=False)
 def get_my_projects(user_id):
     """
-    Retrieves the list of projects that a user is a member of.
+    Retrieves the list of projects that a user is a member of, along with the project member data.
     """
     projects = storage.all(Project).values()
     project_members = storage.all(Project_member).values()
 
-    my_projects = [project for project_member in project_members
-                   if project_member.user_id == user_id
-                   for project in projects
-                   if project.id == project_member.project_id]
-    
-    the_projs_user_is_part_of = [filter(lambda p_m: p_m.user_id == user_id, project_members).to_dict()]
+    # Index projects by ID for efficient lookup
+    projects_by_id = {project.id: project for project in projects}
 
-    project_dicts = [project.to_dict() for project in my_projects]
+    # Filter project_members first to find those related to the user
+    user_project_members = filter(lambda p_m: p_m.user_id == user_id, project_members)
 
-    return jsonify({project_dicts,  the_projs_user_is_part_of})
+    # Construct the response with project details and project member details
+    user_projects_info = []
+    for project_member in user_project_members:
+        if project_member.project_id in projects_by_id:
+            project_info = projects_by_id[project_member.project_id].to_dict()
+            project_member_info = project_member.to_dict()
+            # Combine project info and project member info in the response
+            user_projects_info.append({
+                'project': project_info,
+                'project_member': project_member_info
+            })
+
+    return jsonify(user_projects_info)
 
 
 @app_views.route('/project_members', methods=['GET'], strict_slashes=False)
