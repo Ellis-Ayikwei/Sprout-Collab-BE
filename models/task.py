@@ -29,6 +29,7 @@ class Task(BaseModel, Base):
     status = Column(sqlEnum(status), default=status.pending, nullable=False)
     members = relationship("Task_member", backref="tasks", cascade="all, delete-orphan")
 
+    checklists = relationship("ChecklistItem", backref="tasks", cascade="all, delete-orphan")
     def __repr__(self):
         """return a string representation of the task"""
         return self.__str__
