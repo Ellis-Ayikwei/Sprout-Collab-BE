@@ -18,3 +18,4 @@ from api.v1.views.task_member import *
 from api.v1.views.goal_member import *
 from api.v1.views.resource import *
 from api.v1.views.collaboration_member import *
+from api.v1.views.check_list_item import *
