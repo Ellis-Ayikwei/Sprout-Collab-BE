@@ -16,6 +16,8 @@ from models.resource import Resource
 from models.task import Task
 from models.task_member import Task_member
 from models.user import User
+from models.check_list_item import ChecklistItem
+from models.user_check_list_item import UserChecklistItem
 
 from os import getenv
 import sqlalchemy
@@ -35,6 +37,8 @@ classes = {
            "Task": Task,
            "Task_members": Task_member,
            "User": User,
+           "ChecklistItem" : ChecklistItem,
+           "UserChecklistItem" : UserChecklistItem,
            }    
 
 
