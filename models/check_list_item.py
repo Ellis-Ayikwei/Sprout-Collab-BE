@@ -7,7 +7,7 @@ from sqlalchemy import (
     Boolean,
     ForeignKey
 )
-from sqlalchemy.orm import relationshipI
+from sqlalchemy.orm import relationship
 
 class ChecklistItem(BaseModel, Base):
     """Class definition for checklist items"""
