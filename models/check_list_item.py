@@ -16,7 +16,6 @@ class ChecklistItem(BaseModel, Base):
     description = Column(String(255), nullable=False)
     is_completed = Column(Boolean, default=False, nullable=False)
 
-    task = relationship("Task", back_populates="checklist_items")
     user_checklist_items = relationship("UserChecklistItem", back_populates="checklist_item", cascade="all, delete-orphan")
 
     def __repr__(self):
