@@ -245,7 +245,7 @@ def add_checklist_item(user_ids):
         new_chl = ChecklistItem(
             task_id= user_ids[i],
             description= f"description for task no. {i}" ,
-            is_completed = True if i % 2 == 0 else False,
+            is_completed = 1 if i % 2 == 0 else 0,
         )
 
         new_chl.save()
