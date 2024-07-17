@@ -14,6 +14,7 @@ from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
 from models.project_member  import Project_member
 from models.check_list_item import ChecklistItem
+from models.user_check_list_item import UserChecklistItem
 
 #storage.close()
 init(autoreset=True)
@@ -250,11 +251,11 @@ def add_checklist_item():
         new_chl.save()
         print(f"{Fore.BLUE}new checklist item added")
 
-def add_user_checlist_item():
+def add_user_checlist_item(checklist_ids):
     for i in range(10):
-        new_uchl = ChecklistItem(
+        new_uchl = UserChecklistItem(
             user_id ="1857a37b-0afe-4ceb-a05f-867fa9918de7",
-            task_id = "6371b269-63d0-4fa3-b058-f1f6c432a4bf",
+            checklist_item_id = checklist_ids[i],
             is_completed = 1 if i % 2 == 0 else 0,
         )
         new_uchl.save()
@@ -320,7 +321,10 @@ if __name__ == "__main__":
         # add_a_project_member()
         # new_a_task_member()
         #add_checklist_item()
-        add_user_checlist_item()
+        checklist = storage.all(ChecklistItem).items()
+        checklist_ids = [k.split(".")[-1] for k,v  in checklist]
+        
+        add_user_checlist_item(checklist_ids)
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
