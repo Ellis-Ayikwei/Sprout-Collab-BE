@@ -12,7 +12,7 @@ from api.v1.views.helper_functions import get_user_id_from_all_user
 
 
 @app_views.route('/tasks/user_checklist_items/<user_id>', methods=['GET'], strict_slashes=False)
-def get_user_checklist_items(user_id):
+def get_users_checklist_items(user_id):
     """
     Retrieves the list of checklist items that a user is a member of.
     """
