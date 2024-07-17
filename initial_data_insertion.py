@@ -295,8 +295,8 @@ if __name__ == "__main__":
        # add_collab_m("2e26b04d-4ada-4807-94f7-611d035a9242", collab_ids[4])
         # add_a_collab(user_ids)
         #add_a_projects(goal_ids)
-        add_a_project_member()
-        new_a_task_member()
+       # add_a_project_member()
+       #  new_a_task_member()
         
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
