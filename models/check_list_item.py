@@ -15,6 +15,7 @@ class ChecklistItem(BaseModel, Base):
     task_id = Column(String(60), ForeignKey("tasks.id", ondelete='CASCADE'), nullable=False)
     description = Column(String(255), nullable=False)
     is_completed = Column(Boolean, default=False, nullable=False)
+    name = Column(String(128), deafault="the checklist" nullable=True)
 
     user_checklist_items = relationship("UserChecklistItem", back_populates="checklist_item", cascade="all, delete-orphan")
 
