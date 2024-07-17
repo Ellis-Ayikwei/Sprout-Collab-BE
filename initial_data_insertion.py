@@ -240,10 +240,10 @@ def add_collab_m(user_id, collab_id):
      new_goal_m.save()
      print(f"{Fore.BLUE}new c member added")
      
-def add_checklist_item(user_ids):
+def add_checklist_item(task_ids):
     for i in range(10):
         new_chl = ChecklistItem(
-            task_id= user_ids[i],
+            task_id = task_ids[i],
             description= f"description for task no. {i}" ,
             is_completed = 1 if i % 2 == 0 else 0,
         )
