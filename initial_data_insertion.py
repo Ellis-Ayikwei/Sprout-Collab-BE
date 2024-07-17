@@ -13,6 +13,7 @@ from models.user import User
 from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
 from models.project_member  import Project_member
+from models.check_list_item import ChecklistItem
 
 #storage.close()
 init(autoreset=True)
@@ -238,6 +239,21 @@ def add_collab_m(user_id, collab_id):
      )
      new_goal_m.save()
      print(f"{Fore.BLUE}new c member added")
+     
+def add_checklist_item(user_ids):
+    for i in range(10):
+        new_chl = ChecklistItem(
+            task_id= user_ids[i],
+            description= f"description for task no. {i}" ,
+            is_completed = 1 if i % 2 == 0 else 0,
+        )
+
+        new_chl.save()
+        print(f"{Fore.BLUE}new checklist item added")
+    
+    
+   
+
 
 if __name__ == "__main__":
     
@@ -295,9 +311,9 @@ if __name__ == "__main__":
        # add_collab_m("2e26b04d-4ada-4807-94f7-611d035a9242", collab_ids[4])
         # add_a_collab(user_ids)
         #add_a_projects(goal_ids)
-       # add_a_project_member()
-       #  new_a_task_member()
-        
+        # add_a_project_member()
+        # new_a_task_member()
+        add_checklist_item(user_ids)
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
