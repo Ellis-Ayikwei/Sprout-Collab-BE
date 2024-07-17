@@ -249,9 +249,16 @@ def add_checklist_item():
         )
         new_chl.save()
         print(f"{Fore.BLUE}new checklist item added")
-    
-    
-   
+
+def add_user_checlist_item():
+    for i in range(10):
+        new_uchl = ChecklistItem(
+            user_id ="1857a37b-0afe-4ceb-a05f-867fa9918de7",
+            task_id = "6371b269-63d0-4fa3-b058-f1f6c432a4bf",
+            is_completed = 1 if i % 2 == 0 else 0,
+        )
+        new_uchl.save()
+        print(f"{Fore.BLUE}new useer checklist item added")
 
 
 if __name__ == "__main__":
@@ -312,7 +319,8 @@ if __name__ == "__main__":
         #add_a_projects(goal_ids)
         # add_a_project_member()
         # new_a_task_member()
-        add_checklist_item()
+        #add_checklist_item()
+        add_user_checlist_item()
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
