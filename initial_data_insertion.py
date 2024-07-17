@@ -247,7 +247,6 @@ def add_checklist_item(task_ids):
             description= f"description for task no. {i}" ,
             is_completed = 1 if i % 2 == 0 else 0,
         )
-
         new_chl.save()
         print(f"{Fore.BLUE}new checklist item added")
     
@@ -313,7 +312,7 @@ if __name__ == "__main__":
         #add_a_projects(goal_ids)
         # add_a_project_member()
         # new_a_task_member()
-        add_checklist_item(user_ids)
+        add_checklist_item(task_ids)
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
