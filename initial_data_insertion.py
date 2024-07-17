@@ -249,9 +249,10 @@ def add_checklist_item(user_ids):
         )
 
         new_chl.save()
+        print(f"{Fore.BLUE}new checklist item added")
+    
     
    
-    print(f"{Fore.BLUE}new c member added")
 
 
 if __name__ == "__main__":
