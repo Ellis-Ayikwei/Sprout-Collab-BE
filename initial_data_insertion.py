@@ -240,10 +240,10 @@ def add_collab_m(user_id, collab_id):
      new_goal_m.save()
      print(f"{Fore.BLUE}new c member added")
      
-def add_checklist_item(task_ids):
-    for i in range(10):
+def add_checklist_item():
+    for i in range(11,20):
         new_chl = ChecklistItem(
-            task_id = task_ids[i],
+            task_id = "6371b269-63d0-4fa3-b058-f1f6c432a4bf",
             description= f"description for task no. {i}" ,
             is_completed = 1 if i % 2 == 0 else 0,
         )
@@ -312,7 +312,7 @@ if __name__ == "__main__":
         #add_a_projects(goal_ids)
         # add_a_project_member()
         # new_a_task_member()
-        add_checklist_item(task_ids)
+        add_checklist_item()
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:
