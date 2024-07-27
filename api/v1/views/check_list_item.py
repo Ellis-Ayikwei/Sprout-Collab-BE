@@ -21,7 +21,7 @@ def get_all_checklist_items():
 
     return jsonify(checklist_items_dicts)
 
-@app_views.route('/task/<task_id>/checklist', methods=['GET'],
+@app_views.route('/task/<task_id>/checklists', methods=['GET'],
                  strict_slashes=False)
 def get_checklist_items(task_id):
     """
