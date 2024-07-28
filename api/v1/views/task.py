@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for tasks """
+from models.check_list_item import ChecklistItem
 from models.task import Task
 from models.project import Project
 from models.project import Project
@@ -87,6 +88,13 @@ def post_task(project_id):
     new_task.project_id = project_id
     new_task.goal_id = project.goal_id
     new_task.save()
+    
+    checklists = data['checklist_items']
+    for checklist in checklists:
+        new_checklist = ChecklistItem(**checklist)
+        new_checklist.task_id = new_task.id
+        new_checklist.save()
+    
     return make_response(jsonify(new_task.to_dict()), 201)
 
 
