@@ -69,6 +69,35 @@ def delete_task(task_id):
 
 @app_views.route('/projects/<project_id>/tasks', methods=['POST'],
                  strict_slashes=False)
+def create_task(project_id):
+    """
+    Creates a task for a project
+    """
+    project = storage.get(Project, project_id)
+    if not project:
+        abort(404)
+
+    if not request.is_json:
+        abort(400, description="Request must be in JSON format")
+
+    if 'name' not in request.json:
+        abort(400, description="Task name is missing")
+
+    task_data = request.json
+    task = Task(**task_data)
+    task.project_id = project_id
+    task.goal_id = project.goal_id
+    
+
+    checklists = task_data.get('checklist_items', [])
+    for checklist in checklists:
+        checklist_item = ChecklistItem(**checklist)
+        checklist_item.task_id = task.id
+        checklist_item.save()
+    task.save()
+    return (jsonify(task.to_dict()), 201)
+@app_views.route('/projects/<project_id>/tasks', methods=['POST'],
+                 strict_slashes=False)
 def post_task(project_id):
     """
     Creates a Project
