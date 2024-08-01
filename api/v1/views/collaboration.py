@@ -83,11 +83,11 @@ def post_collaboration(goal_id):
   
 
     data = request.get_json()
+    user_id = data['user_id']
     collaboration = Collaboration(admin_id=user_id, **data)
     collaboration.goal_id = goal.id
     collaboration.save()
     
-    user_id = get_user_id_from_all_user(data)
     new_member = Collaboration_member(role="admin", collaboration_id=collaboration.id, user_id=user_id)
     new_member.save()
 

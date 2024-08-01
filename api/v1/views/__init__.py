@@ -20,4 +20,5 @@ from api.v1.views.resource import *
 from api.v1.views.collaboration_member import *
 from api.v1.views.check_list_item import *
 from api.v1.views.user_check_list_item import *
+from api.v1.views.firebase_operations import *
 

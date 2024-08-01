@@ -17,6 +17,8 @@ def get_all_tasks():
     """
     tasks = storage.all(Task).values()
     
+    if len(tasks) == 0:
+        return jsonify([])
     if not tasks:
         abort(404)
 
