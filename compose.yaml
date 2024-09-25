@@ -1,0 +1,24 @@
+version: '3.8'  # Use a version that supports deploy settings
+
+services:
+  app:
+    image: python3-slim
+    build:
+      context: .
+    ports:
+      - "5004:5004"  # Map port 5004 on the host to port 5004 in the container
+    deploy:
+      replicas: 3  # Number of replicas you want to run
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+      restart_policy:
+        condition: on-failure
+    working_dir: /app
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: overlay  # Use overlay network for Swarm mode
