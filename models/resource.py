@@ -25,7 +25,7 @@ class Resource(BaseModel, Base):
     url = Column(String(250), nullable=False)
     visible = Column(Boolean, default=True, nullable=False)
     uploader = Column(String(60), ForeignKey("users.id"), nullable=False)
-    
+    type = Column(String(512), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """Initialization of the project"""

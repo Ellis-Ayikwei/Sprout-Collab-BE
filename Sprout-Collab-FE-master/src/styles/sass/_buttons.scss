@@ -1,0 +1,64 @@
+@use "./custom" as *;
+
+@mixin btn-base {
+	display: inline-block;
+	padding: 0.5rem 1rem;
+	border: 1px solid #ccc;
+
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none; /* Remove underline */
+	font-weight: bold; /* Optional */
+
+	&:hover {
+		color: $main-darkest;
+	}
+}
+
+.btn {
+	@include btn-base;
+}
+
+.btn--primary {
+	@include btn-base;
+	background-color: $main;
+	color: #fff;
+	z-index: 0 !important;
+	// background: linear-gradient(
+	// 	130deg,
+	// 	rgba(3, 53, 11, 0.966) 0%,
+	// 	rgba(45, 68, 1, 0.63) 100%
+	// );
+	border-radius: 15px;
+}
+
+.btn--secondary {
+	@include btn-base;
+	background-color: $main-darkest;
+	color: #fff;
+	z-index: 0 !important;
+  border-radius: 15px;
+  
+}
+
+.btn--outline {
+	@include btn-base;
+	background-color: transparent;
+	border-color: $main; /* Adjust border color as needed */
+	color: $main;
+  border-radius: 15px;
+}
+
+.add-goal {
+	button {
+		@include btn-base;
+		background-color: $main;
+		color: #fff;
+		border-radius: 10px;
+		margin: 0;
+		cursor: pointer;
+		text-align: center;
+		text-decoration: none;
+		font-weight: bold;
+	}
+}

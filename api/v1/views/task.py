@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for tasks """
 from models.check_list_item import ChecklistItem
+from models.collaboration import Collaboration
+from models.project_member import Project_member
 from models.task import Task
 from models.project import Project
 from models.project import Project
@@ -8,6 +10,10 @@ from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
+
+from models.task_member import Task_member
+from models.user import User
+from models.user_check_list_item import UserChecklistItem
 
 
 @app_views.route('/tasks', methods=['GET'], strict_slashes=False)
@@ -17,6 +23,8 @@ def get_all_tasks():
     """
     tasks = storage.all(Task).values()
     
+    if len(tasks) == 0:
+        return jsonify([])
     if not tasks:
         abort(404)
 
@@ -36,7 +44,10 @@ def get_tasks(project_id):
     if not project:
         abort(404)
     for task in project.tasks:
-        list_tasks.append(task.to_dict())
+        task_dict = task.to_dict()
+        task_dict['all_members'] = [member.to_dict() for member in task.members]
+        task_dict['all_checklists'] = [checklist.to_dict() for checklist in task.checklist_items]
+        list_tasks.append(task_dict)
 
     return jsonify(list_tasks)
 
@@ -71,30 +82,57 @@ def delete_task(task_id):
                  strict_slashes=False)
 def post_task(project_id):
     """
-    Creates a Project
+    Creates a Task
     """
-    
     project = storage.get(Project, project_id)
     if not project:
         abort(404)
+
     if not request.get_json():
         abort(400, description="Not a JSON")
-    if 'name' not in request.get_json():
-        abort(400, description="Missing name")
-   
 
     data = request.get_json()
+    if 'name' not in data:
+        abort(400, description="Missing name")
+    print("the data is", data)
+    
+    
     new_task = Task(**data)
-    new_task.project_id = project_id
-    new_task.goal_id = project.goal_id
     new_task.save()
     
-    checklists = data['checklists']
+    checklists = data.get('checklists', [])
+    new_checklists = []
     for checklist in checklists:
         new_checklist = ChecklistItem(**checklist)
         new_checklist.task_id = new_task.id
         new_checklist.save()
+        new_checklists.append(new_checklist)
+        
+    collaboration = storage.get(Collaboration, project.collab_id)
+    for member in collaboration.members:
+        user = storage.get(User, member.user_id)
+        if not user:
+            abort(400, description=f"User with ID {member.user_id} does not exist")
+
+        new_task_member = Task_member(
+            project_id=project_id,
+            task_id=new_task.id,
+            user_id=member.user_id
+        )
+        new_task_member.save()
+        
+        for new_checklist in new_checklists:
+            new_user_checklist_item = UserChecklistItem(
+                user_id=member.user_id,
+                checklist_item_id=new_checklist.id,
+                task_id=new_task.id,
+                task_member_id=new_task_member.id
+            )
+            new_user_checklist_item.save()
+       
     
+    
+
     return make_response(jsonify(new_task.to_dict()), 201)
 
 

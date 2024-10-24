@@ -6,7 +6,7 @@ from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
-from api.v1.views.helper_functions import get_user_id_from_all_user
+from api.v1.helpers.helper_functions import get_user_id_from_all_user
 
 
 

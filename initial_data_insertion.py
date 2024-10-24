@@ -277,31 +277,31 @@ if __name__ == "__main__":
         ]
 
 
-        add_new_users()
+        #add_new_users()
         users = storage.all(User).items()
         user_ids = [k.split(".")[-1] for k,v  in users]
 
 
-        add_new_goal_type(goal_types)
+        #add_new_goal_type(goal_types)
         goal_types = storage.all(Goal_type).items()
         goal_type_ids = [k.split(".")[-1] for k,v  in goal_types]
 
 
-        add_goals(goal_type_ids)
+        #add_goals(goal_type_ids)
         goals = storage.all(Goal).items()
         goal_ids = [k.split(".")[-1] for k,v  in goals]
 
 
 
 
-        add_collab(user_ids, goal_ids)
+        #add_collab(user_ids, goal_ids)
         collabs =storage.all(Collaboration).items()
         collab_ids = [k.split(".")[-1] for k,v  in collabs]
 
         
-        #new_collab_m(user_ids, collab_ids)
+        new_collab_m(user_ids, collab_ids)
         
-        add_new_resource(user_ids, collab_ids)
+        #add_new_resource(user_ids, collab_ids)
 
 
        # add_projects(goal_ids, collab_ids)
@@ -326,7 +326,7 @@ if __name__ == "__main__":
         #checklist = storage.all(ChecklistItem).items()
         #checklist_ids = [k.split(".")[-1] for k,v  in checklist]
         
-        add_user_checlist_item(checklist_ids)
+        #add_user_checlist_item(checklist_ids)
     except Exception as e:
         print(f"{Fore.RED}failed {e}")
     else:

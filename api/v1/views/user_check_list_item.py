@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for task_members """
+from colorama import Fore
+from flask.cli import F
 from models.task import Task
 from models.user_check_list_item import UserChecklistItem
 from models.check_list_item import ChecklistItem
@@ -7,37 +9,23 @@ from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
-from api.v1.views.helper_functions import get_user_id_from_all_user
+from api.v1.helpers.helper_functions import get_user_id_from_all_user
 
 
 
-@app_views.route('/tasks/user_checklist_items/<user_id>', methods=['GET'], strict_slashes=False)
-def get_users_checklist_items(user_id):
-    """
-    Retrieves the list of checklist items that a user is a member of.
-    """
-    tasks = storage.all(Task).values()
+@app_views.route('/tasks/<task_member_id>/user_checklist_items/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user_checklist_items(user_id, task_member_id):
+    """Retrieves the list of checklist items that a user is a member of."""
     user_checklist_items = storage.all(UserChecklistItem).values()
 
-    # Index tasks by ID for efficient lookup
-    tasks_by_id = {task.id: task for task in tasks}
+    user_related_checklist_items = []
+    for checklist_item in user_checklist_items:
+        print(f"{Fore.RED} the checklist item is", checklist_item.to_dict())
+        if checklist_item.user_id == user_id and checklist_item.task_member_id == task_member_id:
+            print(f"{Fore.RED} the checklist item is", checklist_item.to_dict())
+            user_related_checklist_items.append(checklist_item.to_dict())
 
-    # Filter user_checklist_items first to find those related to the user
-    user_related_checklist_items = [checklist_item for checklist_item in user_checklist_items if checklist_item.user_id == user_id]
-
-    # Construct the response with task details and user_checklist_item details
-    user_tasks_info = []
-    for user_checklist_item in user_related_checklist_items:
-        if user_checklist_item.task_id in tasks_by_id:
-            task_info = tasks_by_id[user_checklist_item.task_id].to_dict()
-            user_checklist_item_info = user_checklist_item.to_dict()
-            # Combine task info and user_checklist_item info in the response
-            user_tasks_info.append({
-                'task': task_info,
-                'user_checklist_item': user_checklist_item_info
-            })
-
-    return jsonify(user_tasks_info)
+    return jsonify(user_related_checklist_items)
 
 @app_views.route('/user_checklist_items', methods=['GET'], strict_slashes=False)
 def get_all_user_checklist_items():
@@ -53,22 +41,22 @@ def get_all_user_checklist_items():
 
     return jsonify(user_checklist_item_dicts)
 
-@app_views.route('/checklists/<checklist_id>/user_checklist_items', methods=['GET'], strict_slashes=False)
-def get_user_checklist_items(checklist_id):
-    """
-    Retrieves the list of task members associated with a specific user checklist item.
-    """
-    task_members = []
-    checklist_item = storage.get(ChecklistItem, checklist_id)
+# @app_views.route('/checklists/<checklist_id>/user_checklist_items', methods=['GET'], strict_slashes=False)
+# def get_user_checklist_items(checklist_id):
+#     """
+#     Retrieves the list of task members associated with a specific user checklist item.
+#     """
+#     task_members = []
+#     checklist_item = storage.get(ChecklistItem, checklist_id)
 
-    if not checklist_item:
-        abort(404)
+#     if not checklist_item:
+#         abort(404)
 
-    for member in checklist_item.members:
-        task_members.append(member.to_dict())
+#     for member in checklist_item.members:
+#         task_members.append(member.to_dict())
 
-    return jsonify(task_members)
-    return jsonify(task_members_list)
+#     return jsonify(task_members)
+#     return jsonify(task_members_list)
 
 
 @app_views.route('/user_checklist_items/<user_checklist_item_id>/', methods=['GET'], strict_slashes=False)

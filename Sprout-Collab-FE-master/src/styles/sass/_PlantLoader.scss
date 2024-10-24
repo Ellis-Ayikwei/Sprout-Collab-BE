@@ -1,0 +1,38 @@
+/* Save this as loader.css */
+@keyframes growSeed {
+    0% { r: 5; }
+    20% { r: 10; }
+    100% { r: 0; }
+  }
+  
+  @keyframes growStem {
+    0% { y2: 150; }
+    100% { y2: 100; }
+  }
+  
+  @keyframes growLeaf {
+    0% { r: 0; }
+    100% { r: 10; }
+  }
+  
+  @keyframes growFlower {
+    0% { r: 0; }
+    100% { r: 15; }
+  }
+  
+  #seed {
+    animation: growSeed 3s infinite;
+  }
+  
+  #stem {
+    animation: growStem 3s infinite;
+  }
+  
+  #leaf {
+    animation: growLeaf 3s infinite;
+  }
+  
+  #flower {
+    animation: growFlower 3s infinite;
+  }
+  

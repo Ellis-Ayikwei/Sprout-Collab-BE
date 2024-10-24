@@ -1,0 +1,91 @@
+@use "./About";
+@use "./Features";
+@use "./Footer";
+@use "./Header";
+@use "./Hero";
+@use "./Navbar";
+@use "./buttons";
+@use "./growth_benefits";
+@use "./benefits_section.scss";
+@use "./Login.scss";
+@use "./Register.scss";
+@use "./GoalList.scss";
+@use "./Home.scss";
+@use "./SubNav";
+@use "./ProjectList";
+@use "./aside";
+@use "./mycollabs";
+@use "./card";
+@use "./loader";
+@use "./Tasklist";
+@use "./addgoal";
+@use "./custom" as *;
+@use "./Modal";
+@use "./resource";
+@use "./resourcemenu";
+@use "./test";
+@use "./SettingsPage";
+@use "./sidebar";
+@use "./Checklist";
+@use "./taskmembersDone";
+@use "./CollabList";
+@use "./PlantLoader";
+
+@use "./GoalDetailsPage";
+@use "./GenericCard";
+@use "./cloneItems";
+
+body {
+	::-webkit-scrollbar {
+		width: 10px;
+		margin-right: 5px !important;
+	}
+
+	a {
+		text-decoration: none;
+		color: inherit;
+		cursor: inherit;
+	}
+
+	::-webkit-scrollbar-track {
+		border-radius: 8px;
+		background-color: #e7e7e7;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		border: 3px solid transparent;
+		background-clip: content-box;
+		background-color: $main;
+	}
+}
+
+.Outlet {
+	margin-left: 210px;
+	margin-right: 10px;
+	display: grid;
+	position: relative;
+	flex-wrap: wrap;
+
+	> * {
+		display: flex;
+		flex-wrap: wrap;
+		grid-gap: 10px;
+		justify-content: space-between;
+	}
+
+	@media screen and (max-width: 758px) {
+		margin-left: 55px;
+		position: relative;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		display: flex;
+		flex-direction: column;
+		> * {
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+		}
+	}
+}

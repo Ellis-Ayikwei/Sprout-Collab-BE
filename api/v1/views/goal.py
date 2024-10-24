@@ -1,10 +1,15 @@
 #!/usr/bin/python3
 """ objects that handle all default RestFul API actions for Goals """
+from tracemalloc import start
+from colorama import Fore
 from models.goal import Goal
-from models import storage
+from models import collaboration, storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
 from flasgger.utils import swag_from
+
+from models.goal_member import Goal_member
+from models.user import User
 
 
 @app_views.route('/goals', methods=['GET'], strict_slashes=False)
@@ -15,7 +20,13 @@ def get_goals():
     all_goals = storage.all(Goal).values()
     list_goals = []
     for goal in all_goals:
-        list_goals.append(goal.to_dict())
+        goal_dict = goal.to_dict()
+        goal_dict['all_tasks'] = [task.to_dict() for task in goal.tasks]
+        goal_dict['all_members'] = [member.to_dict() for member in goal.members]
+        goal_dict['all_collaborations'] = [collaboration.to_dict() for collaboration in goal.collaborations]
+        goal_dict['all_projects'] = [project.to_dict() for project in goal.projects]
+        
+        list_goals.append(goal_dict)
     return jsonify(list_goals)
 
 
@@ -25,8 +36,15 @@ def get_goal(goal_id):
     goal = storage.get(Goal, goal_id)
     if not goal:
         abort(404)
+        
+    goal_dict = goal.to_dict()
+    goal_dict['all_tasks'] = [task.to_dict() for task in goal.tasks]
+    goal_dict['all_members'] = [member.to_dict() for member in goal.members]
+    goal_dict['all_collaborations'] = [collaboration.to_dict() for collaboration in goal.collaborations]
+    goal_dict['all_projects'] = [project.to_dict() for project in goal.projects]
+        
 
-    return jsonify(goal.to_dict())
+    return jsonify(goal_dict)
 
 
 @app_views.route('/goals/<goal_id>', methods=['DELETE'],
@@ -59,9 +77,15 @@ def post_goal():
         abort(400, description="Missing name")
 
     data = request.get_json()
-    instance = Goal(**data)
-    instance.save()
-    return make_response(jsonify(instance.to_dict()), 201)
+    print(f"{Fore.GREEN} - {data}")
+    user_id = data['creator_id']
+    user = storage.get(User, user_id)
+    print(f"{Fore.RED} - {user_id} {user}")
+    new_goal = Goal(**data)
+    new_goal.save()
+    new_goal_member = Goal_member(user_id=user_id, goal_id=new_goal.id, start_date=new_goal.created_at)
+    new_goal_member.save()
+    return make_response(jsonify(new_goal.to_dict()), 201)
 
 
 @app_views.route('/goals/<goal_id>', methods=['PUT'], strict_slashes=False)

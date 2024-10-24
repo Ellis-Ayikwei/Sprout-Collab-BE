@@ -1,0 +1,67 @@
+@use "./custom" as *;
+.second-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	// background-color: $light;
+	padding: 0.5rem 1rem;
+	width: 90%;
+	margin: auto;
+	height: auto;
+	z-index: 0;
+	position: relative;
+	box-shadow: none;
+	background-color: transparent;
+	@media screen and (max-width: 768px) {
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 20px;
+		width: 70%;
+	}
+}
+
+.second-nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+
+	.menu-filter {
+		display: flex;
+		align-items: center;
+	}
+
+	.Goalname {
+		flex-grow: 1;
+		text-align: center;
+		font-size: 1.2rem;
+		font-weight: bold;
+	}
+
+	.details {
+		display: flex;
+		gap: 20px;
+		@media screen and (max-width: 768px) {
+			font-size: 0.7rem;
+			gap: 3px;
+		}
+
+		.detail-item {
+			display: flex;
+			align-items: center;
+			gap: 7px;
+			font-size: 1rem;
+			font-weight: bold;
+			@media screen and (max-width: 768px) {
+				font-size: 0.7rem;
+				gap: 3px;
+			}
+		}
+
+		.admin-info {
+			margin-left: 10px;
+			font-style: italic;
+			font-size: 0.9rem;
+		}
+	}
+}

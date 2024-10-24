@@ -1,0 +1,118 @@
+@use './custom' as *;
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column layout for smaller screens */
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  padding:0 1rem;
+  color: #fff;
+  height: auto; /* Adjust height to fit content on smaller screens */
+  background-size: cover;
+  background-position: center;
+  margin-top: 0;
+  height: 90dvh;
+  @media (min-width: 768px) { /* Adjustments for tablets and larger screens */
+    grid-template-columns: 1.5fr 2fr; /* Original two-column layout */
+    height: 80dvh; /* Original height */
+  }
+}
+
+.hero__info {
+  
+    color: $main-darkest;
+    font-family: 'Poppins';
+   
+
+  .hero__info__title{
+    font-size: 6vw;
+    font-weight: bold;
+  }
+  .hero__info__description{
+    font-size: 4vw;
+  }
+  
+  
+  @media (min-width: 768px) { /* Tablet and up */
+    
+    .hero__info__title{
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .hero__info__description{
+      font-size: 1rem;
+    }
+
+      
+    }
+
+  
+
+  p {
+    margin-top: 0;
+  }
+
+  .hero-logo {
+    width: 40px; /* Adjusted logo size for smaller screens */
+
+    @media (min-width: 768px) { /* Tablet and up */
+      width: 100px; /* Original logo size */
+    }
+  }
+}
+
+.hero__image-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column layout for smaller screens */
+  grid-template-rows: auto; /* Auto-adjust row height */
+  grid-auto-flow: row;
+  margin-top: 20px;
+  
+
+  @media (min-width: 768px) { /* Adjustments for tablets and larger screens */
+    grid-template-columns: repeat(3, 0.5fr); /* Original column setup */
+    grid-template-rows: repeat(3, 0.5fr); /* Original row setup */
+    grid-template-areas:
+      ". . single-col"
+      ". double-col1 double-col2"
+      "triple-col1 triple-col2 triple-col3";
+    gap: 1rem ; 
+  }
+}
+
+.hero__image-grid img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 6px solid rgba(194, 248, 189, 0.432);
+  // border-style: inset;
+  border-radius: 15px;
+  box-shadow: rgba(93, 229, 93, 0.35) 0px 5px 15px;
+  
+
+}
+
+.single-col-content {
+  grid-area: single-col;
+}
+
+.double-col-content1 {
+  grid-area: double-col1;
+}
+
+.double-col-content2 {
+  grid-area: double-col2;
+}
+
+.tripple-col-content1 {
+  grid-area: triple-col1;
+}
+
+.tripple-col-content2 {
+  grid-area: triple-col2;
+}
+
+.tripple-col-content3 {
+  grid-area: triple-col3;
+}

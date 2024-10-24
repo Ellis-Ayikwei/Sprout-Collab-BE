@@ -22,7 +22,7 @@ def get_users():
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
     """ Retrieves a specific User """
-    from api.v1.views.helper_functions import get_user_id_from_all_user
+    from api.v1.helpers.helper_functions import get_user_id_from_all_user
     
     if user_id is None:
         print("no user id entered user the helper function")
@@ -58,7 +58,7 @@ def post_user():
     """
     Creates a User
     """
-    from api.v1.views.helper_functions import is_username_already_taken
+    from api.v1.helpers.helper_functions import is_username_already_taken
 
     data = request.get_json()
     if not data:
@@ -89,7 +89,7 @@ def put_user():
     """
     Updates a User
     """
-    from api.v1.views.helper_functions import get_user_id_from_all_user
+    from api.v1.helpers.helper_functions import get_user_id_from_all_user
 
     data = request.get_json()
     user_id=get_user_id_from_all_user(data)

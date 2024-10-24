@@ -1,0 +1,94 @@
+.collab-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	width: auto;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+	transition: 0.3s;
+	margin-bottom: 10px;
+
+	&:hover {
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3),
+			0 12px 40px 0 rgba(0, 0, 0, 0.19);
+		transform: translateY(-5px);
+	}
+
+	.growth--icon {
+		width: 20px;
+		height: 20px;
+		margin-right: 0.5rem;
+		// margin-bottom: 0;
+	}
+
+	p {
+		margin: 5px;
+		font-weight: bold;
+	}
+}
+
+.goal-types {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 0.5rem;
+	width: 100%;
+	justify-items: center;
+	margin-left: auto;
+	align-items: center;
+	align-content: center;
+	@media only screen and (min-width: 768px) {
+		gap: 1rem;
+		display: flex !important;
+		justify-content: center !important;
+	}
+	@media only screen and (max-width: 768px) {
+		gap: 0.5rem;
+		font-size: 10px;
+		align-items: center !important;
+		margin: auto;
+	}
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	width: 250px;
+	max-width: 300px;
+	max-height: 300px;
+	justify-content: start !important;
+
+	.card-image {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.card-content {
+		padding: 1rem;
+		flex: 1;
+	}
+
+	.card-title {
+		margin-bottom: 0.5rem;
+	}
+
+	@media only screen and (max-width: 768px) {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+		gap: 0.5rem;
+		font-size: 10px;
+		width: 90%;
+		align-items: center;
+		height: 100px;
+		.card-image {
+			height: 100px;
+			object-fit: cover;
+		}
+	}
+}

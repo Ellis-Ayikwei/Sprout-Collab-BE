@@ -29,8 +29,11 @@ class Goal(BaseModel, Base):
     type = Column(String(60), ForeignKey("goal_types.id"), nullable=False)
     
     projects = relationship("Project", backref="goals", cascade="all, delete-orphan")
-    Collaborations = relationship("Collaboration", backref="goals", cascade="all, delete-orphan")
+    collaborations = relationship("Collaboration", backref="goals", cascade="all, delete-orphan")
+    tasks = relationship("Task", backref="goals", cascade="all, delete-orphan")
     members = relationship("Goal_member", backref="goals", cascade="all, delete-orphan")
+    creator_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    creator = relationship("User", backref="goals")
 
     def __init__(self, *args, **kwargs):
         """Initialization of the goal"""

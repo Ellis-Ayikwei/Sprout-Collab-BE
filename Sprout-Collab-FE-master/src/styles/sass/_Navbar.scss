@@ -1,0 +1,111 @@
+@use "./custom" as *;
+
+nav {
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	padding: 1rem 2rem;
+	position: sticky;
+	top: 0;
+	left: 0;
+    right: 0;
+    margin: auto;
+	background-color: $body;
+	color: $main-darkest;
+	// box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	align-items: center;
+
+	.main-logo {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		.logo {
+			width: 30px;
+			height: auto;
+			margin-right: 0;
+		}
+		.logo-text {
+			font-size: 1.2rem;
+			color: $main-darkest;
+			margin-left: 0;
+		}
+	}
+
+	.menu-items {
+		display: flex;
+		align-items: center;
+		.nav-buttons {
+			display: flex;
+			align-items: center;
+			.btn--primary,
+			.btn--secondary {
+				padding: 0.5rem 1rem;
+				border: none;
+				border-radius: 30px;
+				cursor: pointer;
+				margin-left: 0.5rem;
+				&:hover {
+					background-color: #eee;
+				}
+			}
+			.btn--primary {
+				background-color: #fff;
+				color: $main-darkest;
+				border: 1px solid #ccc;
+			}
+			.btn--secondary {
+				background-color: #ccc;
+				color: #fff;
+			}
+		}
+	}
+
+	.icons {
+		display: none;
+	}
+
+	.mobile-menu-icon {
+		display: none;
+		font-size: 1.5rem;
+		cursor: pointer;
+	}
+
+	@media screen and (max-width: 768px) {
+		padding: 1rem;
+		.menu-items {
+			display: none;
+		}
+		.mobile-menu-icon {
+			display: block;
+			color: $main-darkest;
+		}
+		.icons {
+			display: flex;
+			align-items: center;
+		}
+	}
+}
+
+.link {
+	text-decoration: none;
+	display: flex;
+	color: white;
+	align-items: center;
+	padding: 0 1rem;
+	height: 100%;
+	cursor: pointer;
+}
+
+.github-corner {
+	position: fixed;
+	top: 0;
+	z-index: 99999;
+	right: 0px;
+	.github-icon {
+		color: white;
+	}
+}
+
+.icon-tabler {
+	margin-right: 5px;
+}

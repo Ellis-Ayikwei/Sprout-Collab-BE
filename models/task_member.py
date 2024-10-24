@@ -10,8 +10,10 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     Boolean,
-    Enum as sqlEnum
+    Enum as sqlEnum,
+   
 )
+from sqlalchemy.orm import relationship
 
 from models.miscelleaneousClasses import status
 
@@ -26,6 +28,8 @@ class Task_member(BaseModel, Base):
     end_date = Column(Date, nullable=True)
     no_of_approvals = Column(Integer, default=0, nullable=True) 
     is_approved = Column(Boolean, default=False, nullable=False)
+    checklists = relationship("UserChecklistItem", backref="task_members", cascade="all, delete-orphan")
+
 
 
     def __repr__(self):

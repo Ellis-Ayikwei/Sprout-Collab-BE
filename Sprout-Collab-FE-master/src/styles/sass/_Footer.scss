@@ -1,0 +1,7 @@
+@use './custom' as * ;
+
+.footer{
+    background-color: $main !important;
+    padding: 1rem;
+    text-align: center;
+}

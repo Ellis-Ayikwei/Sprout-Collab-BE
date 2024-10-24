@@ -1,0 +1,75 @@
+@use "./custom" as *;
+.goal-details-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	box-sizing: border-box;
+	justify-content: center !important;
+	@media screen and (max-width: 768px) {
+		width: 100%;
+		padding: 5px;
+	}
+}
+
+/* Header styles */
+.goal-description {
+	font-size: 1dvi;
+
+	margin: 10px 0;
+
+	color: $main;
+	background-color: $light;
+	height: 80px;
+	border-radius: 50px;
+	padding-top: 15px;
+	border: 1px solid $light;
+	justify-content: left !important;
+	text-align: left;
+	padding-left: 25px;
+}
+
+/* Content styles */
+.goal-content {
+	display: flex;
+	gap: 5px;
+	position: relative;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 100%;
+	align-self: center;
+
+	justify-content: center;
+
+	@media screen and (max-width: 768px) {
+		position: relative;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		scroll-behavior: smooth;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 768px) {
+	.goal-description {
+		font-size: 1.2rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.goal-description {
+		text-align: center;
+		align-content: center;
+		margin: auto;
+		padding: 15px !important;
+	}
+
+	.goal-content {
+		grid-template-columns: 1fr;
+	}
+}

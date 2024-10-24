@@ -1,0 +1,23 @@
+BACKUP_DIR="/path/to/backup/$(date +%Y%m%d_%H%M%S)"
+mkdir -p $BACKUP_DIR
+
+# Create a database dump for MySQL/MariaDB
+mysqldump -u root -p'your_password' --all-databases > $BACKUP_DIR/all_databases.sqlsudo 
+rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / $BACKUP_DIR/ --include="/etc/nginx/"
+
+sudo cp -r /path/to/local/restore/etc/nginx/* /etc/nginx/
+sudo systemctl restart nginx
+
+# Send backup to remote server
+rsync -avz $BACKUP_DIR user@remote_server:/path/to/remote/backup/
+
+find /path/to/backup/* -maxdepth 0 -type d -mtime +7 -exec rm -rf {} \;
+
+
+rsync -avz user@remote_server:/path/to/remote/backup/ /path/to/local/restore/
+
+sudo rsync -aAXv /path/to/local/restore/ /
+
+mysql -u root -p < /path/to/local/restore/all_databases.sql
+sudo cp -r /path/to/local/restore/etc/nginx/* /etc/nginx/
+sudo systemctl restart nginx

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """the module for the tasks"""
+from tabnanny import check
 from models.basemodel import BaseModel, Base
 from models.miscelleaneousClasses import status
 from sqlalchemy.orm import relationship
@@ -20,16 +21,16 @@ from sqlalchemy import (
 class Task(BaseModel, Base):
     """Class definition for the task"""
     __tablename__ = "tasks"
-    goal_id = Column(String(128), ForeignKey("goals.id"), nullable=False)
-    project_id = Column(String(128), ForeignKey("projects.id"), nullable=False)
+    goal_id = Column(String(128), ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
+    project_id = Column(String(128), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(128), nullable=False)
     start_date = Column(Date, nullable=True)
     end_date = Column(Date, nullable=True)
     status = Column(sqlEnum(status), default=status.pending, nullable=False)
     members = relationship("Task_member", backref="tasks", cascade="all, delete-orphan")
-    
     checklist_items = relationship("ChecklistItem", backref="tasks", cascade="all, delete-orphan")
+    
     def __repr__(self):
         """return a string representation of the task"""
         return self.__str__

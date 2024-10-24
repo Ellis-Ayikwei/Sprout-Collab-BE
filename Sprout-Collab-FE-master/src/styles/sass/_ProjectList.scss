@@ -1,0 +1,191 @@
+@use "./custom" as *;
+.project-list {
+	width: 420px;
+	box-shadow: $box-shadow;
+	height: 75vh;
+	padding: 0px !important;
+	position: relative;
+	flex-shrink: 0 !important;
+	border-radius: 15px;
+	cursor: pointer;
+	@media screen and (max-width: 768px) {
+		margin-left: auto;
+		margin-right: auto;
+		margin: 20px auto;
+		width: 90%;
+	}
+
+	@media (max-width: 480px) {
+		width: 90%;
+	}
+
+	.title {
+		position: absolute;
+		width: 100%;
+		max-width: 30%;
+		background-color: $main-darkest;
+		color: white;
+		text-align: center;
+		padding: 10px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		z-index: 2;
+		transform: translateY(-50%);
+	}
+
+	.project-cards {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		align-items: center;
+		overflow-y: scroll;
+		margin-top: 10px;
+		height: 400px;
+		padding-top: 10px;
+	}
+
+	.project-card {
+		width: 90%;
+		max-width: 400px;
+		height: fit-content;
+		display: flex;
+		position: relative;
+		flex-direction: column;
+		padding: 10px;
+		align-items: center;
+		align-content: center;
+		border-radius: 15px;
+		background-color: #fff;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		transition: transform 0.3s ease;
+		cursor: pointer !important;
+		.project-info__name {
+			margin: 0;
+		}
+
+		.project--details1 {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0;
+			.growth--icon {
+				width: 20px;
+				height: 20px;
+				margin-right: 1rem;
+			}
+
+			p {
+				margin: 0;
+			}
+
+			.project-info {
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				align-content: start;
+				justify-content: space-between;
+				padding: 5px;
+				width: 90%;
+				max-width: 500px;
+				color: $main-darkest;
+				font-size: 1.2rem;
+				font-weight: 500;
+				margin: auto;
+				.project-info1 {
+					text-align: left;
+					.project-info__description {
+						font-size: 0.5em;
+						margin: 0;
+						padding: 0;
+						color: $main;
+						font-weight: 500;
+					}
+				}
+
+				.project-info2 {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					align-content: center;
+					margin: 0;
+					padding: 0px;
+					font-weight: bold;
+					font-size: 0.5em;
+					li:first-child {
+						list-style: none;
+						margin-left: 0px;
+						margin-right: 20px;
+					}
+					li {
+						margin-left: 10px;
+						align-content: center;
+						align-items: center;
+						margin-right: 20px;
+					}
+
+					li::marker {
+						color: $main-darkest;
+						font-size: 0.5rem;
+					}
+				}
+			}
+		}
+
+		.project--details2 {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			align-content: center;
+			width: 90%;
+			max-width: 500px;
+			height: 15px;
+			justify-content: space-between;
+			font-size: 0.7rem;
+			font-weight: 500;
+			margin-top: 0;
+		}
+	}
+
+	.project-card:hover {
+		transform: translateY(-5px);
+	}
+
+	.projects-header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 10px;
+	}
+
+	.projectTabs {
+		cursor: pointer;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		align-content: center;
+		justify-content: left;
+		margin: 10px;
+		font-size: large;
+		font-weight: bolder;
+		color: rgb(168, 186, 168);
+		.selected {
+			color: $main-darkest;
+			padding: 5px;
+			border-radius: 7px;
+			font-size: larger;
+		}
+	}
+}
+.project-progress {
+	align-items: center!important;
+	justify-content: center !important;
+	align-content: center !important;
+	width: 20%;
+	
+	z-index: 0;
+	position: relative;
+	
+}
+

@@ -1,0 +1,245 @@
+@use "./custom" as *;
+
+// .list-container {
+// 	display: flex;
+// 	justify-content: center;
+// 	height: 100vh;
+// 	overflow: hidden;
+// 	@media screen and (max-width: 768px) {
+// 		margin-left: auto;
+// 		margin-right: auto;
+// 		margin: 20px auto;
+// 		width: 100%;
+// 	}
+
+// 	@media (max-width: 480px) {
+// 		width: 90%;
+// 	}
+// }
+.list-container {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	// box-shadow: $box-shadow;
+	border: 1px solid $light;
+	max-height: 75vh;
+
+	max-width: 400px;
+	min-width: 200px;
+	border-radius: 15px;
+	position: relative;
+	cursor: pointer;
+	@media screen and (max-width: 768px) {
+		margin-left: auto;
+		margin-right: auto;
+		margin: 20px auto;
+		width: 95%;
+	}
+
+	@media (max-width: 480px) {
+		width: 95%;
+	}
+}
+.title {
+	position: absolute;
+	width: 100%;
+	max-width: 30%;
+	background-color: $main-darkest;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	z-index: 2;
+	transform: translateY(-50%);
+}
+
+.generic-cards {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: center;
+
+	margin-top: 10px;
+
+	padding-top: 10px;
+	padding: 0 10px;
+	overflow-y: scroll;
+	max-height: 80% !important;
+
+	@media screen and (max-width: 768px) {
+		overflow-y: scroll;
+		max-height: 50dvh !important;
+	}
+}
+
+.generic-card {
+	height: fit-content;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	padding: 10px;
+	align-items: center;
+	align-content: center;
+	border-radius: 10px;
+	border: 1px solid $light;
+	width: 90%;
+	background-color: white;
+	transition: transform 0.3s ease;
+	cursor: pointer !important;
+	.generic-info__name {
+		margin: 0;
+	}
+
+	.generic--details1 {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0;
+		width: 100%;
+		.growth--icon {
+			width: 20px;
+			height: 20px;
+			margin-right: 0.7rem;
+			background: $lighter;
+			border-radius: 10px;
+			padding: 10px;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		.generic-info {
+			display: flex;
+			flex-direction: column;
+			align-items: start;
+			align-content: start;
+			justify-content: space-between;
+			padding: 5px;
+			width: 100%;
+			color: $main-darkest;
+			font-size: 1rem;
+			font-weight: 500;
+			margin: auto;
+			.generic-info1 {
+				text-align: left;
+				.generic-info__description {
+					font-size: 0.5em;
+					margin: 0;
+					padding: 0;
+					color: $main;
+					font-weight: 500;
+				}
+			}
+
+			.generic-info2 {
+				display: inline-flex;
+				flex-direction: row;
+				// white-space: nowrap;
+				flex-wrap: nowrap;
+				align-items: center;
+				align-content: center;
+				margin: 0;
+				padding: 0px;
+				font-weight: bold;
+				font-size: 0.5em;
+				li:first-child {
+					list-style: none;
+					margin-left: 0px;
+					margin-right: 20px;
+				}
+				li {
+					margin-left: 10px;
+					align-content: center;
+					align-items: center;
+					margin-right: 20px;
+				}
+
+				li::marker {
+					color: $main-darkest;
+					font-size: 0.5rem;
+				}
+			}
+		}
+	}
+
+	.generic--details2 {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		align-content: center;
+		width: 90%;
+		max-width: 500px;
+		height: 15px;
+		justify-content: space-between;
+		font-size: 0.7rem;
+		font-weight: 500;
+		margin-top: 0;
+	}
+}
+
+.generic-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.generics-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.genericTabs {
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: center;
+	justify-content: left;
+	margin: 10px;
+	font-size: large;
+	font-weight: bolder;
+	color: rgb(168, 186, 168);
+	.selected {
+		color: $main-darkest;
+		padding: 5px;
+		border-radius: 7px;
+		font-size: larger;
+	}
+}
+
+.generic-progress-circular {
+	align-items: center !important;
+	justify-content: center !important;
+	align-content: center !important;
+	width: 20%;
+	z-index: 0;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+.CircularProgressbar-path {
+	align-content: center !important;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	.text {
+	}
+}
+
+// .CircularProgressbar-text {
+// 	align-content: center !important;
+// 	align-items: center;
+// 	justify-content: center;
+// 	text-align: center;
+// 	margin: auto;
+// 	color: black !important;
+// }
+
+.generic-progress-bar {
+	align-items: center !important;
+	margin-bottom: 0;
+}

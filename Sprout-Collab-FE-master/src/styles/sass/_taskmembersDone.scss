@@ -1,0 +1,87 @@
+@use "./custom" as *;
+
+.task-member-done-container {
+	display: flex;
+	flex-direction: column;
+
+	margin: auto;
+	width: 90%;
+	position: relative;
+	
+	font-family: Arial, sans-serif;
+	@media screen and (max-width: 768px) {
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.task-member-link-and-action {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		text-align: left;
+
+		> * {
+			font-size: 0.8rem;
+		}
+		.action {
+			margin-right: 5px;
+		}
+		.action-item {
+			justify-content: space-between !important;
+		}
+	}
+	.task-member-done {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 5px;
+		border: 1px solid #e0e0e0;
+		border-radius: 8px;
+		margin-bottom: 10px;
+		background-color: #f9f9f9;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+		&__initial {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 30px;
+			height: 30px;
+			background-color: #007bff; // Change to your desired color
+			color: #fff;
+			border-radius: 8px;
+			font-size: 0.8rem;
+			font-weight: bold;
+			margin-right: 5px;
+			padding: auto;
+		}
+
+		&__name {
+			flex-grow: 1;
+			.email {
+				font-size: 0.6rem;
+				text-decoration: none;
+			}
+			h5 {
+				margin: 0;
+				font-size: 16px;
+				color: #333;
+			}
+		}
+
+		&__status {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.approve-checkbox {
+			cursor: pointer;
+			margin-right: 10px;
+			input {
+				margin-right: 10px;
+			}
+		}
+		.task-member-done__name {
+			font-size: 0.8rem;
+		}
+	}
+}

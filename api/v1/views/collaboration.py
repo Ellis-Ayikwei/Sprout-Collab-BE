@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for collaborations """
-from api.v1.views.helper_functions import get_user_id_from_all_user
+from api.v1.helpers.helper_functions import get_user_id_from_all_user
 from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
 from models.goal import Goal
@@ -18,7 +18,11 @@ def get_all_collaborations():
     if not collaborations:
         abort(404)
 
-    collaboration_dicts = [collaboration.to_dict() for collaboration in collaborations]
+    collaboration_dicts = []
+    for collaboration in collaborations:
+        collaboration_dict = collaboration.to_dict()
+        collaboration_dict['all_members'] = [member.to_dict() for member in collaboration.members]
+        collaboration_dicts.append(collaboration_dict)
 
     return jsonify(collaboration_dicts)
 
@@ -34,8 +38,17 @@ def get_collaborations(goal_id):
     goal = storage.get(Goal, goal_id)
     if not goal:
         abort(404)
-    for collaboration in goal.Collaborations:
-        list_collaborations.append(collaboration.to_dict())
+    for collaboration in goal.collaborations:
+        collaboration_dict = collaboration.to_dict()
+        collaboration_dict['all_members'] = [member.to_dict() for member in collaboration.members]
+        list_collaborations.append(collaboration_dict)
+        
+        
+    # collaboration_dicts = []
+    # for collaboration in collaborations:
+    #     collaboration_dict = collaboration.to_dict()
+    #     collaboration_dict['all_members'] = [member.to_dict() for member in collaboration.members]
+    #     collaboration_dicts.append(collaboration_dict)
 
     return jsonify(list_collaborations)
 
@@ -83,11 +96,11 @@ def post_collaboration(goal_id):
   
 
     data = request.get_json()
+    user_id = data['user_id']
     collaboration = Collaboration(admin_id=user_id, **data)
     collaboration.goal_id = goal.id
     collaboration.save()
     
-    user_id = get_user_id_from_all_user(data)
     new_member = Collaboration_member(role="admin", collaboration_id=collaboration.id, user_id=user_id)
     new_member.save()
 

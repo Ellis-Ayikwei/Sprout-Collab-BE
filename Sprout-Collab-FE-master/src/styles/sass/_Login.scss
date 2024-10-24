@@ -1,0 +1,61 @@
+// @use "./custom" as *;
+
+// .login-page {
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: center;
+// 	min-height: 80vh;
+
+// 	.growth-benefits {
+// 		@media screen and (max-width: 768px) {
+// 			display: none;
+// 		}
+// 	}
+// }
+
+// .login-form {
+// 	flex: 1;
+// 	max-width: 400px;
+// 	padding: 2rem;
+// 	align-items: center;
+// 	justify-content: center;
+// 	border-radius: 15px;
+// 	border: 3px solid $light;
+// 	@media screen and (max-width: 784px) {
+// 		border: none;
+// 	}
+// 	.form--Buttons {
+// 		display: flex;
+// 		align-items: center;
+// 		justify-content: center;
+// 	}
+// }
+
+// .login-form h2 {
+// 	margin-bottom: 1rem;
+// 	font-size: 1.5rem;
+// 	text-align: center;
+// }
+
+// .login-form input {
+// 	width: 100%;
+// 	padding: 0.5rem;
+// 	margin-bottom: 1rem;
+// 	border: 1px solid #ccc;
+// 	border-radius: 15px;
+// 	box-sizing: border-box;
+// }
+
+// .login-form button:hover {
+// 	background-color: #0056b3;
+// }
+
+// .login-image {
+// 	width: 40%;
+// 	max-width: 600px;
+// }
+
+// .login-image img {
+// 	width: 100%;
+// 	border-radius: 5px;
+// }

@@ -31,10 +31,10 @@ def get_checklist_items(task_id):
     task = storage.get(Task, task_id)
     if not task:
         abort(404)
-    for checklist_item in task.checklist_items:
-        checklist_items.append(checklist_item.to_dict())
+    for checklist in task.checklist_items:
+        checklist_items.append(checklist.to_dict())
 
-    return jsonify(checklist_items)
+    return jsonify(checklist_items), 200
 
 
 @app_views.route('/checklist_items/<checklist_item_id>/', methods=['GET'], strict_slashes=False)

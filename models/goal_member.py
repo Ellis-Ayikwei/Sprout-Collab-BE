@@ -21,7 +21,7 @@ class Goal_member(BaseModel, Base):
     user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
     goal_id = Column(String(60), ForeignKey("goals.id", ondelete='CASCADE'), nullable=False)
     status = Column(sqlEnum(status), default=status.pending, nullable=False)
-    progress = Column(Integer, default=0, nullable=False)
+    progress = Column(Integer, default=0, nullable=True)
     start_date = Column(Date, nullable=True)
     end_date = Column(Date, nullable=True)
 

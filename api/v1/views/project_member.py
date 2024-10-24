@@ -15,6 +15,14 @@ def get_my_projects(user_id):
     """
     Retrieves the list of projects that a user is a member of, along with the project member data.
     """
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
+    print("the usr id is", user_id)
     projects = storage.all(Project).values()
     project_members = storage.all(Project_member).values()
 
@@ -36,6 +44,14 @@ def get_my_projects(user_id):
                 'project_member': project_member_info
             })
 
+
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
+    print("the usr proj info", user_projects_info)
     return jsonify(user_projects_info)
 
 

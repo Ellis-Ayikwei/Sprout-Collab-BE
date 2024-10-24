@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for resources """
-from api.v1.views.helper_functions import get_user_id_from_all_user
+from api.v1.helpers.helper_functions import get_user_id_from_all_user
 from models.collaboration import Collaboration
 from models import storage
 from api.v1.views import app_views

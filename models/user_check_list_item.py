@@ -15,7 +15,8 @@ class UserChecklistItem(BaseModel, Base):
     user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
     checklist_item_id = Column(String(60), ForeignKey("checklist_items.id", ondelete='CASCADE'), nullable=False)
     is_completed = Column(Boolean, default=False, nullable=False)
-
+    task_member_id = Column(String(60), ForeignKey("task_members.id", ondelete='CASCADE'), nullable=True)
+    
     checklist_item = relationship("ChecklistItem", back_populates="user_checklist_items")
 
     def __repr__(self):
