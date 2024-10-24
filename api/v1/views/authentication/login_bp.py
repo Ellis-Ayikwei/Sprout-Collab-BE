@@ -9,7 +9,6 @@ import datetime
 from flask_limiter import Limiter
 from api.v1.helpers.helper_functions import get_user_id_from_all_user
 from api.v1.views import app_auth
-from api.v1.app import bcrypt, ACCESS_EXPIRES
 from models import storage
 from models.user import User
 
@@ -21,6 +20,8 @@ logger = logging.getLogger(__name__)
 @app_auth.route('/login', methods=['POST'], strict_slashes=False)
 def login():
     """Handle login requests."""
+    from api.v1.app import bcrypt, ACCESS_EXPIRES
+
     data = request.get_json()
 
     if not data or ('username' not in data and 'email' not in data) or 'password' not in data:
@@ -59,6 +60,8 @@ def refresh_access_token():
     """
     Refresh an access token.
     """
+    from api.v1.app import bcrypt, ACCESS_EXPIRES
+
     user_id = get_jwt_identity()
     access_token = create_access_token(identity=user_id, expires_delta=ACCESS_EXPIRES)
     refresh_token = create_refresh_token(identity=user_id)
