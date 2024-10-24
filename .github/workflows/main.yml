@@ -16,7 +16,7 @@ jobs:
     - name: Set up SSH agent
       uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.DO_SSH_KEY }}
+        ssh-private-key: ${{ secrets.DO_SSH_KEYS }}
 
     - name: Deploy to DigitalOcean Droplet
       run: |
