@@ -3,7 +3,6 @@
 from venv import logger
 from flask import make_response,jsonify, request
 from flask_jwt_extended import create_access_token, get_jwt, jwt_required, set_access_cookies, unset_jwt_cookies
-from api.v1.app import jwt_redis_blocklist
 from api.v1.views import app_auth
 
 @app_auth.route("/logout", methods=["POST"], strict_slashes=False)
