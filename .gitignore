@@ -1,5 +1,5 @@
 node_modules/
-scb
+scb/
 .venv
 scb/Lib/site-packages/distutils-precedence.pth
 scb/Lib/site-packages/MySQLdb/__pycache__/__init__.cpython-310.pyc
