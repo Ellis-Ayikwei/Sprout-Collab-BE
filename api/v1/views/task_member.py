@@ -18,7 +18,6 @@ def get_my_tasks(user_id):
     tasks = storage.all(Task).values()
     task_members = storage.all(Task_member).values()
 
-    # Index tasks by ID for efficient lookup
     tasks_by_id = {task.id: task for task in tasks}
 
     # Filter task_members first to find those related to the user
