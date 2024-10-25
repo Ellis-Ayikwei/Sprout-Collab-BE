@@ -108,7 +108,7 @@ def create_app():
 
     # Initialize extensions
     bcrypt.init_app(app)
-    CORS(app, resources={r"*": {"origins": "*"}}, supports_credentials=True)
+    CORS(app, resources={r"*": {"origins": "*"}}, supports_credentials=True, origins=["*"])
     
 
     # Register blueprints
