@@ -26,6 +26,7 @@ class User(BaseModel, Base):
     """User class"""
     __tablename__ = 'users'
 
+    google_0auth_uid = Column(String(255), nullable=True)
     email = Column(String(254), nullable=False, unique=True, index=True)
     first_name = Column(String(150), nullable=False)
     last_name = Column(String(128), nullable=True)

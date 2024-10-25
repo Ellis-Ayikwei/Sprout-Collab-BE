@@ -44,11 +44,8 @@ def login():
         refresh_token = create_refresh_token(identity=user.username)
 
         response = make_response(jsonify(user.to_dict()))
-        set_access_cookies(response, access_token)
-        set_refresh_cookies(response, refresh_token)
-        csrf_access_token = get_csrf_token(access_token)
-        response.set_cookie('csrf_access_token', value=csrf_access_token, httponly=False, secure=False, path='/', expires=datetime.datetime.now() + ACCESS_EXPIRES)
-        
+        response.headers['Authorization'] = 'Bearer ' + access_token
+        response.headers['X-Refresh-Token'] = refresh_token
         return response
 
     return jsonify({'message': 'Invalid credentials'}), 401
@@ -67,12 +64,8 @@ def refresh_access_token():
     refresh_token = create_refresh_token(identity=user_id)
 
     response = make_response(jsonify({"message": "Token refreshed!"}))
-    set_access_cookies(response, access_token)
-    set_refresh_cookies(response, refresh_token)
-    csrf_access_token = get_csrf_token(access_token)
-    response.set_cookie('csrf_access_token', value=csrf_access_token, httponly=False, 
-                    secure=False, path='/', 
-                    expires=datetime.datetime.now() + ACCESS_EXPIRES)
-
+    response.headers['Authorization'] = 'Bearer ' + access_token
+    response.headers['X-Refresh-Token'] = refresh_token
 
     return response
+
