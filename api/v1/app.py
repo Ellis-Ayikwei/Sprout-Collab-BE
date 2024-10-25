@@ -51,7 +51,7 @@
 
 import datetime
 import os
-from flask import Flask, make_response, jsonify
+from flask import Flask, make_response, jsonify, request
 import redis
 
 
@@ -108,7 +108,7 @@ def create_app():
 
     # Initialize extensions
     bcrypt.init_app(app)
-    CORS(app, resources={r"*": {"origins": "*"}}, supports_credentials=True, origins=["*"])
+    CORS(app, resources={r"*": {"origins": "*"}}, supports_credentials=True)
     
 
     # Register blueprints
@@ -126,6 +126,14 @@ def create_app():
     def close_db(error):
         """Close Storage"""
         storage.close()
+
+    @app.after_request
+    def after_request(response):
+        origin = request.headers.get("Origin")
+        if origin:
+            # Dynamically set the Access-Control-Allow-Origin header to the incoming origin
+            response.headers["Access-Control-Allow-Origin"] = origin
+        return response
 
     @app.errorhandler(404)
     def not_found(error):
