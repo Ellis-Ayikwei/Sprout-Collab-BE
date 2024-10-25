@@ -127,13 +127,7 @@ def create_app():
         """Close Storage"""
         storage.close()
 
-    @app.after_request
-    def after_request(response):
-        origin = request.headers.get("Origin")
-        if origin:
-            # Dynamically set the Access-Control-Allow-Origin header to the incoming origin
-            response.headers["Access-Control-Allow-Origin"] = origin
-        return response
+   
 
     @app.errorhandler(404)
     def not_found(error):
