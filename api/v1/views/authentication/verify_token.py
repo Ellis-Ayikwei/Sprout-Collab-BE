@@ -2,10 +2,12 @@ from flask import request, jsonify
 from firebase_admin import auth
 from flask_jwt_extended import create_access_token, create_refresh_token
 from models import storage
+from api.v1.views import app_auth
+
 
 from models.user import User
 
-@app.route('/api/verify_token', methods=['POST'])
+@app_auth.route('/api/verify_token', methods=['POST'])
 def verify_token():
     """
     Verify Firebase ID token and return a custom JWT for further API access.
