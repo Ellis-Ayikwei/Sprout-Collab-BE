@@ -21,7 +21,8 @@ def get_goals():
     """
     auts = request.headers.get('Authorization')
     verify_jwt_in_request()
-    print("auts", get_jwt_header())
+    print("gwt header", get_jwt_header())
+    print("auts", auts)
     
     all_goals = storage.all(Goal).values()
     list_goals = []

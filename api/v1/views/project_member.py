@@ -44,14 +44,6 @@ def get_my_projects(user_id):
                 'project_member': project_member_info
             })
 
-
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
-    print("the usr proj info", user_projects_info)
     return jsonify(user_projects_info)
 
 
