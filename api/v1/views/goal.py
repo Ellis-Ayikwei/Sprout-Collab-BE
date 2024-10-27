@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ objects that handle all default RestFul API actions for Goals """
 from tracemalloc import start
-from colorama import Fore
+
+from flask_jwt_extended import jwt_required
 from models.goal import Goal
 from models import collaboration, storage
 from api.v1.views import app_views
@@ -13,6 +14,7 @@ from models.user import User
 
 
 @app_views.route('/goals', methods=['GET'], strict_slashes=False)
+# @jwt_required(refresh=True)
 def get_goals():
     """
     Retrieves the list of all Goal objects
@@ -77,10 +79,8 @@ def post_goal():
         abort(400, description="Missing name")
 
     data = request.get_json()
-    print(f"{Fore.GREEN} - {data}")
     user_id = data['creator_id']
     user = storage.get(User, user_id)
-    print(f"{Fore.RED} - {user_id} {user}")
     new_goal = Goal(**data)
     new_goal.save()
     new_goal_member = Goal_member(user_id=user_id, goal_id=new_goal.id, start_date=new_goal.created_at)

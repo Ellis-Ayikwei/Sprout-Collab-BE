@@ -3,7 +3,10 @@
 from flask import Blueprint
 from models import storage
 
+
 app_views = Blueprint('app_views', __name__, url_prefix='/sc/api/v1')
+
+
 app_auth = Blueprint('app_auth', __name__, url_prefix='/sc/api/v1/auth')
 
 """Import for the views"""

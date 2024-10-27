@@ -1,12 +1,16 @@
 #!/usr/bin/python3
 """ objects that handles all default RestFul API actions for collaborations """
 from api.v1.helpers.helper_functions import get_user_id_from_all_user
+from models import goal_member
+from models .goal_member import Goal_member
 from models.collaboration import Collaboration
 from models.collaboration_member import Collaboration_member
 from models.goal import Goal
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
+
+from models.user import User
 
 
 @app_views.route('/collaborations', methods=['GET'], strict_slashes=False)
@@ -96,13 +100,21 @@ def post_collaboration(goal_id):
   
 
     data = request.get_json()
+    print(data)
     user_id = data['user_id']
+    user = User(id=user_id)
     collaboration = Collaboration(admin_id=user_id, **data)
     collaboration.goal_id = goal.id
     collaboration.save()
     
     new_member = Collaboration_member(role="admin", collaboration_id=collaboration.id, user_id=user_id)
     new_member.save()
+    
+    if user not in goal.members:
+        goal_member = Goal_member(goal_id=goal.id, user_id=user_id)
+        goal_member.save()
+    # goal_member = Goal_member(goal_id=goal.id, user_id=user_id)
+    # goal_member.save()
 
    
     return make_response(jsonify(collaboration.to_dict()), 201)

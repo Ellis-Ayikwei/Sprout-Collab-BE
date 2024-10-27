@@ -33,7 +33,7 @@ class Goal(BaseModel, Base):
     tasks = relationship("Task", backref="goals", cascade="all, delete-orphan")
     members = relationship("Goal_member", backref="goals", cascade="all, delete-orphan")
     creator_id = Column(String(60), ForeignKey("users.id"), nullable=False)
-    creator = relationship("User", backref="goals")
+    creator = relationship("User", foreign_keys=[creator_id])
 
     def __init__(self, *args, **kwargs):
         """Initialization of the goal"""

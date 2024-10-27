@@ -108,13 +108,38 @@ def create_app():
 
     # Initialize extensions
     bcrypt.init_app(app)
-    CORS(app, resources={r"*": {"origins": "*"}}, supports_credentials=True)
+    CORS(app,
+        resources={r"*": {"origins": "*"}},
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
+        )
     
 
     # Register blueprints
     app.register_blueprint(app_views)
     app.register_blueprint(app_auth)
 
+
+    @app.before_request
+    def handle_preflight():
+        if request.method == 'OPTIONS':
+            response = make_response()
+            response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "*")
+            response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
+            response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+            return response, 204
+        
+        
+    @app.after_request
+    def after_request(response):
+        response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "*")
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
+        response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+    
+    
     # Configure Swagger
     app.config['SWAGGER'] = {
         'title': 'Sprout Collab Restful API',

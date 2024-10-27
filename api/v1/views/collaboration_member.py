@@ -42,6 +42,8 @@ def get_my_collaborations(user_id):
                 'collaboration_member': collaboration_member_info
             })
 
+
+    print("mycollabloations", user_collaborations_info)
     return jsonify(user_collaborations_info)
 
 @app_views.route('/collaboration_members', methods=['GET'], strict_slashes=False)

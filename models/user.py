@@ -1,8 +1,10 @@
+from asyncio import tasks
 from datetime import datetime
 import bcrypt
 from sqlalchemy.ext.declarative import declarative_base
 #!/usr/bin/python3
 """the module for the user class"""
+from models import collaboration
 from models.basemodel import BaseModel, Base
 from passlib.hash import pbkdf2_sha256
 from sqlalchemy.orm import relationship
@@ -41,6 +43,7 @@ class User(BaseModel, Base):
     is_superuser = Column(Integer, nullable=False, default=0)
     last_login = Column(DateTime, nullable=True)
     resource = relationship("Resource", backref="users")
+    
 
     def __init__(self, *args, **kwargs):
         """Initialization of the user"""
@@ -66,6 +69,3 @@ class User(BaseModel, Base):
 
     def update_password(self, new_password: str):
         self.password = self._hash_password(new_password)
-
-
- 
