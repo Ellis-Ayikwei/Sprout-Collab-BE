@@ -14,7 +14,7 @@ from models.user import User
 
 
 @app_views.route('/goals', methods=['GET'], strict_slashes=False)
-# @jwt_required(refresh=True)
+# @jwt_required()
 def get_goals():
     """
     Retrieves the list of all Goal objects
