@@ -9,7 +9,7 @@ from api.v1.views import app_auth
 @jwt_required()
 def logout():
     from api.v1.app import ACCESS_EXPIRES
-
+    print(get_jwt())
     jti = get_jwt()["jti"]
     jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
     return jsonify(msg="Access token revoked")
