@@ -84,7 +84,7 @@ def create_app():
     
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret')
-    # app.config['JWT_COOKIE_CSRF_PROTECT']  = False
+    app.config['JWT_HEADER_NAME']  = "Authorization"
     # app.config['JWT_COOKIE_SECURE'] = False
     # app.config['JWT_COOKIE_SAMESITE'] = 'None'
     # app.config['JWT_ACCESS_CSRF_COOKIE_NAME'] = 'csrf_access_token'

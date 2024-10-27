@@ -6,6 +6,7 @@ from api.v1.views import app_auth
 
 
 @app_auth.route("/logout", methods=["POST"], strict_slashes=False)
+@jwt_required()
 def logout():
     from api.v1.app import ACCESS_EXPIRES
     print(get_jwt())
