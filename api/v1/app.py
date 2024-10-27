@@ -85,23 +85,13 @@ def create_app():
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret')
     app.config['JWT_HEADER_NAME']  = "Authorization"
-    # app.config['JWT_COOKIE_SECURE'] = False
-    # app.config['JWT_COOKIE_SAMESITE'] = 'None'
-    # app.config['JWT_ACCESS_CSRF_COOKIE_NAME'] = 'csrf_access_token'
-    # app.config['JWT_ACCESS_COOKIE_NAME'] = 'access_token_cookie'
-    # app.config['JWT_REFRESH_COOKIE_NAME'] = 'refresh_token_cookie'
-    # app.config['JWT_ACCESS_CSRF_HEADER_NAME'] = 'X-CSRF-Token'
-    # app.config['JWT_ACCESS_TOKEN_EXPIRES'] = ACCESS_EXPIRES
-    # app.config['JWT_REFRESH_TOKEN_EXPIRES'] = datetime.timedelta(days=7)
-    # app.config['JWT_TOKEN_LOCATION'] = ['cookies', 'headers']
-    
-    allowed_origins = ["http://localhost:3000", "https://www.sproutcollab.me/"]
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = ACCESS_EXPIRES
     app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
+   
+    allowed_origins = ["http://localhost:3000", "https://www.sproutcollab.me/"]
 
-    # If true this will only allow the cookies that contain your JWTs to be sent
-    # over https. In production, this should always be set to True
-    app.config["JWT_COOKIE_SECURE"] = False
 
+    app.config["CORS_HEADERS"] = ["Content-Type", "Authorization", "X-Refresh-Token"]
     # Change this in your code!
     app.config["JWT_SECRET_KEY"] = "super-secret"
 
