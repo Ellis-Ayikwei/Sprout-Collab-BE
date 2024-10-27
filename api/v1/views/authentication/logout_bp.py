@@ -4,12 +4,6 @@ from flask_jwt_extended import get_jwt, jwt_required
 import redis
 from api.v1.views import app_auth
 
-@jwt.token_in_blocklist_loader
-def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
-    jti = jwt_payload["jti"]
-    token_in_redis = jwt_redis_blocklist.get(jti)
-    return token_in_redis is not None
-
 
 @app_auth.route("/logout", methods=["DELETE"])
 @jwt_required()
