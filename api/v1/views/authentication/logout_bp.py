@@ -1,21 +1,25 @@
-
-
 from venv import logger
-from flask import make_response,jsonify, request
-from flask_jwt_extended import create_access_token, get_jwt, jwt_required, set_access_cookies, unset_jwt_cookies
+from flask import make_response, jsonify, request
+from flask_jwt_extended import get_jwt, jwt_required
+import redis
 from api.v1.views import app_auth
 
-@app_auth.route("/logout", methods=["POST"], strict_slashes=False)
+@jwt.token_in_blocklist_loader
+def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
+    jti = jwt_payload["jti"]
+    token_in_redis = jwt_redis_blocklist.get(jti)
+    return token_in_redis is not None
+
+
+@app_auth.route("/logout", methods=["DELETE"])
+@jwt_required()
 def logout():
-    from .login_bp import ACCESS_EXPIRES
+    from api.v1.app import ACCESS_EXPIRES
 
-    try:
-        resp = make_response(jsonify({'message': 'Logged out successfully!'}))
-        # Clear cookies for access and refresh tokens
-        unset_jwt_cookies(resp)
-        logger.info('User logged out')
-        return resp, 200
-    except Exception as e:
-        logger.error(f"Error logging out user: {e}")
-        return make_response(jsonify({'message': 'Error logging out user'}), 500)
+    jti = get_jwt()["jti"]
+    jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+    return jsonify(msg="Access token revoked")
 
+jwt_redis_blocklist = redis.StrictRedis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
