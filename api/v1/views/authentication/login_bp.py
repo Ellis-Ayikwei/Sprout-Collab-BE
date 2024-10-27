@@ -44,7 +44,7 @@ def login():
         refresh_token = create_refresh_token(identity=user.username)
 
         response = make_response(jsonify(user.to_dict()))
-        response.headers['Authorization'] = 'Bearer ' + access_token
+        response.headers['Authorization'] = access_token
         response.headers['X-Refresh-Token'] = refresh_token
         print("response headers", response.headers)
         return response
@@ -65,7 +65,7 @@ def refresh_access_token():
     refresh_token = create_refresh_token(identity=user_id)
 
     response = make_response(jsonify({"message": "Token refreshed!"}))
-    response.headers['Authorization'] = 'Bearer ' + access_token
+    response.headers['Authorization'] = access_token
     response.headers['X-Refresh-Token'] = refresh_token
 
     return response
