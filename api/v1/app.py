@@ -133,16 +133,16 @@ def create_app():
         
     
 
-@app.after_request
-def after_request(response):
-    origin = request.headers.get("Origin")
-    if origin in allowed_origins:
-        response.headers["Access-Control-Allow-Origin"] = origin
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
-    response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    return response
-    
+    @app.after_request
+    def after_request(response):
+        origin = request.headers.get("Origin")
+        if origin in allowed_origins:
+            response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
+        response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        return response
+        
     
     # Configure Swagger
     app.config['SWAGGER'] = {
