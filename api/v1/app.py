@@ -84,7 +84,8 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret')
     app.config['JWT_HEADER_NAME']  = "Authorization"
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = ACCESS_EXPIRES
-    app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
+    app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+    # app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
     app.config["JWT_HEADER_TYPE"] = "Bearer"
     allowed_origins = ["http://localhost:3000", "https://www.sproutcollab.me/"]
 
