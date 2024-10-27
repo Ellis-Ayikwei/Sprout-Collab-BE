@@ -46,6 +46,7 @@ def login():
         response = make_response(jsonify(user.to_dict()))
         response.headers['Authorization'] = 'Bearer ' + access_token
         response.headers['X-Refresh-Token'] = refresh_token
+        print(response.headers)
         return response
 
     return jsonify({'message': 'Invalid credentials'}), 401
