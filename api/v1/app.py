@@ -95,7 +95,7 @@ def create_app():
     # app.config['JWT_REFRESH_TOKEN_EXPIRES'] = datetime.timedelta(days=7)
     # app.config['JWT_TOKEN_LOCATION'] = ['cookies', 'headers']
     
-    
+    allowed_origins = ["http://localhost:3000", "https://www.sproutcollab.me/"]
     app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
 
     # If true this will only allow the cookies that contain your JWTs to be sent
@@ -109,9 +109,9 @@ def create_app():
     # Initialize extensions
     bcrypt.init_app(app)
     CORS(app,
-        resources={r"*": {"origins": "*"}},
-        supports_credentials=True,
-        allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
+        # resources={r"*": {"origins": "*"}},
+        # supports_credentials=True,
+        # allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
         )
     
 
@@ -131,13 +131,17 @@ def create_app():
             return response, 204
         
         
-    @app.after_request
-    def after_request(response):
-        response.headers["Access-Control-Allow-Origin"] = request.headers.get("Origin", "*")
-        response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
-        response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
-        response.headers["Access-Control-Allow-Credentials"] = "true"
-        return response
+    
+
+@app.after_request
+def after_request(response):
+    origin = request.headers.get("Origin")
+    if origin in allowed_origins:
+        response.headers["Access-Control-Allow-Origin"] = origin
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
+    response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    return response
     
     
     # Configure Swagger
