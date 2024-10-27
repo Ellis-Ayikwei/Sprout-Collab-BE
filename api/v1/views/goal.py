@@ -19,7 +19,7 @@ def get_goals():
     """
     Retrieves the list of all Goal objects
     """
-    auts = request.headers.get('Authorization')
+    auts = request.headers
     verify_jwt_in_request()
     print("gwt header", get_jwt())
     print("auts", auts)
