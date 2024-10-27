@@ -109,9 +109,9 @@ def create_app():
     # Initialize extensions
     bcrypt.init_app(app)
     CORS(app,
-        # resources={r"*": {"origins": "*"}},
-        # supports_credentials=True,
-        # allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
+        resources={r"sc/api/v1/*": {"origins": "*"}},
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
         )
     
 
