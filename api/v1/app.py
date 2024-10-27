@@ -129,15 +129,11 @@ def create_app():
             response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
             response.headers["Access-Control-Allow-Credentials"] = "true"
             return response, 204
-        
-        
-    
 
     @app.after_request
     def after_request(response):
         origin = request.headers.get("Origin")
-        if origin in allowed_origins:
-            response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Origin"] = origin
         response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Refresh-Token"
         response.headers["Access-Control-Expose-Headers"] = "Authorization, X-Refresh-Token"
         response.headers["Access-Control-Allow-Credentials"] = "true"
