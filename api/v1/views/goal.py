@@ -19,6 +19,9 @@ def get_goals():
     """
     Retrieves the list of all Goal objects
     """
+    auts = request.headers.get('Authorization')
+    print(auts)
+    
     all_goals = storage.all(Goal).values()
     list_goals = []
     for goal in all_goals:
