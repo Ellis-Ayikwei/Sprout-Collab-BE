@@ -85,7 +85,7 @@ def create_app():
     app.config['JWT_HEADER_NAME']  = "Authorization"
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = ACCESS_EXPIRES
     app.config["JWT_TOKEN_LOCATION"] = ["headers", "cookies", "json", "query_string"]
-   
+    app.config["JWT_HEADER_TYPE"] = "Bearer"
     allowed_origins = ["http://localhost:3000", "https://www.sproutcollab.me/"]
 
 
