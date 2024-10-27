@@ -2,7 +2,7 @@
 """ objects that handle all default RestFul API actions for Goals """
 from tracemalloc import start
 
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_header, jwt_required
 from models.goal import Goal
 from models import collaboration, storage
 from api.v1.views import app_views
@@ -14,13 +14,13 @@ from models.user import User
 
 
 @app_views.route('/goals', methods=['GET'], strict_slashes=False)
-@jwt_required(refresh=True)
+# @jwt_required(refresh=True)
 def get_goals():
     """
     Retrieves the list of all Goal objects
     """
     auts = request.headers.get('Authorization')
-    print(auts)
+    print("auts", get_jwt_header())
     
     all_goals = storage.all(Goal).values()
     list_goals = []
