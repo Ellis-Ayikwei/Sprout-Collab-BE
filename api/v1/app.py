@@ -85,6 +85,10 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
+
+    print(os.getenv('MAIL_USERNAME'))
+    print(os.getenv('MAIL_PASSWORD'))
+    app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')  
     mail.init_app(app)
     
     @jwt.token_in_blocklist_loader
