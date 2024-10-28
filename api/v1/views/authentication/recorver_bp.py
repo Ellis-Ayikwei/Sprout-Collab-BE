@@ -3,6 +3,7 @@ from flask import make_response, request, jsonify, url_for
 import redis
 from api.v1.helpers.helper_functions import get_user_id_from_all_user
 from api.v1.views.user import get_user
+from api.v1.views import app_auth
 from models import storage
 from models.user import User
 from flask_mail import Mail, Message
