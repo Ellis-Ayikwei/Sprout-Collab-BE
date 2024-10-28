@@ -26,6 +26,7 @@ def verify_token():
         found_user = None
         for user in users:
             if user['id'] == user_id:
+                print(user)
                 found_user = user
                 break
 
