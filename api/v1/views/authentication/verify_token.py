@@ -15,6 +15,7 @@ def verify_token():
     Expects `Authorization` header with a valid Firebase ID token.
     Returns a JSON response with a custom JWT for the user.
     """
+    from api.v1.app import ACCESS_EXPIRES
     id_token = request.headers['Authorization'].split('Bearer ')[1]
     
     try:
@@ -32,8 +33,8 @@ def verify_token():
             return jsonify({'error': 'User not found'}), 404
 
         # Generate JWT for your Flask app (custom JWT for further API access)
-        access_token = create_access_token(identity=user.username, expires_delta=ACCESS_EXPIRES)
-        refresh_token = create_refresh_token(identity=user.username)
+        access_token = create_access_token(identity=found_user.username, expires_delta=ACCESS_EXPIRES)
+        refresh_token = create_refresh_token(identity=found_user.username)
         return jsonify({'access_token': access_token, 'refresh_token': refresh_token,}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
