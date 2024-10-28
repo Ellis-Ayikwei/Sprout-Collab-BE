@@ -23,7 +23,7 @@ def recover_password():
     if not email:
         return make_response(jsonify({"error": "Email is required"}), 400)
     user_id = get_user_id_from_all_user(email=email)
-    user = get_user(user_id)
+    user = storage.get(User, user_id)
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
     reset_token = user.generate_reset_token()
@@ -48,7 +48,7 @@ def reset_password(token):
     if not email:
         return make_response(jsonify({"error": "Email is required"}), 400)
     user_id = get_user_id_from_all_user(email=email)
-    user = get_user(user_id)
+    user = storage.get(User, user_id)
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
     
