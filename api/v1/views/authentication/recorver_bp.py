@@ -25,8 +25,8 @@ def recover_password():
     user = storage.get(User, user_id)
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
-    reset_token = user.generate_reset_token()
-    url = url_for('app_auth.reset_password', token=reset_token, email=email, _external=True)
+    token = user.generate_reset_token()
+    url = url_for('app_auth.reset_password', token=token, email=email, _external=True)
     
     msg = Message('Password Reset on Sprout Collab',
                   sender='no-reply@sproutcollab.com',
