@@ -78,7 +78,7 @@ class User(BaseModel, Base):
         self.password = self._hash_password(new_password)
 
     
-    @property
+
     def generate_reset_token(self):
         token_bytes = secrets.token_bytes(32)
         token = base64.urlsafe_b64encode(token_bytes).decode('utf-8')
