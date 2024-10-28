@@ -76,11 +76,11 @@ ACCESS_EXPIRES = datetime.timedelta(hours=1)
 def create_app():
     app = Flask(__name__)
     jwt =JWTManager(app)
+    mail.init_app(app)
     
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config.from_prefixed_env()
     
     app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
@@ -109,7 +109,6 @@ def create_app():
 
     # Initialize extensions
     bcrypt.init_app(app)
-    mail.init_app(app)
     CORS(app,
         resources={r"sc/api/v1/*": {"origins": "*"}},
         supports_credentials=True,
