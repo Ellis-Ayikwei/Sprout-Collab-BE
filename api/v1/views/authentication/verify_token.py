@@ -24,7 +24,7 @@ def verify_token():
         users = users_response.get_json()
         found_user = None
         for user in users:
-            if user.id == user_id:
+            if user['id'] == user_id:
                 found_user = user
                 break
 
