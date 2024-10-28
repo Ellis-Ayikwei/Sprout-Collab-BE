@@ -21,6 +21,7 @@ def verify_token():
     try:
         decoded_token = auth.verify_id_token(id_token)
         user_id = decoded_token['uid']
+        print("the decoded token", decoded_token)
         users_response = get_users()
         users = users_response.get_json()
         found_user = None
