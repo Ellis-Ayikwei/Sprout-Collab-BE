@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from firebase_admin import auth
 from flask_jwt_extended import create_access_token, create_refresh_token
+from api.v1.views.user import get_users
 from models import storage
 from api.v1.views import app_auth
 
@@ -19,10 +20,11 @@ def verify_token():
     try:
         decoded_token = auth.verify_id_token(id_token)
         user_id = decoded_token['uid']
-        users = storage.all("User")
+        users = get_users()
+        found_user = None
         for user in users:
             if user.id == user_id:
-                user = user
+                found_user = user
                 break
 
         if not user:
