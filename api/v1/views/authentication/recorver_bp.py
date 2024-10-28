@@ -2,11 +2,10 @@ from email.policy import strict
 from flask import make_response, request, jsonify, url_for
 import redis
 from api.v1.helpers.helper_functions import get_user_id_from_all_user
-from api.v1.views.user import get_user
 from api.v1.views import app_auth
 from models import storage
 from models.user import User
-from flask_mail import Mail, Message
+from flask_mail import Message
 
 user_redis_tokens = redis.StrictRedis(
     host="localhost", port=6379, db=0, decode_responses=True
@@ -42,17 +41,18 @@ def recover_password():
 def reset_password(token, email):
     """ reset password """
     data = request.get_json()
-    if not email:
-        return make_response(jsonify({"error": "Email is required"}), 400)
+    if not data or 'password' not in data:
+        return make_response(jsonify({"error": "Password is required"}), 400)
     user_id = get_user_id_from_all_user(email=email)
     user = storage.get(User, user_id)
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
-    
-    
-    token = user_redis_tokens.get(email, token)
-    if not token:
+
+    stored_token = user_redis_tokens.get(email)
+    if stored_token != token:
         return make_response(jsonify({"error": "Invalid token"}), 400)
+    
     user.update_password(data['password'])
-    user.save()
+    storage.save()
     return make_response(jsonify({"message": "Success"}), 200)
+
