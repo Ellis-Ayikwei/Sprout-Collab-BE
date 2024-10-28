@@ -7,7 +7,7 @@ from api.v1.views import app_auth
 
 from models.user import User
 
-@app_auth.route('/api/verify_token', methods=['POST'])
+@app_auth.route('/verify_token', methods=['POST'])
 def verify_token():
     """
     Verify Firebase ID token and return a custom JWT for further API access.
