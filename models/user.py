@@ -82,3 +82,4 @@ class User(BaseModel, Base):
         token_bytes = secrets.token_bytes(32)
         token = base64.urlsafe_b64encode(token_bytes).decode('utf-8')
         user_redis_tokens.set(self.email, token, ex=3600)
+        return token
