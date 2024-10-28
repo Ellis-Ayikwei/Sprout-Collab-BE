@@ -1,3 +1,4 @@
+import datetime
 from typing import Union
 from flask import make_response, request, jsonify
 from firebase_admin import auth
@@ -43,6 +44,50 @@ def verify_token():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+@app_auth.route('/signup_with_google', methods=['POST'])
+def signup_with_google():
+    """
+    Verify Firebase ID token and sign up the user with the associated email.
+    Expects `Authorization` header with a valid Firebase ID token.
+    Returns a JSON response with a custom JWT for the user.
+    """
+    from api.v1.app import ACCESS_EXPIRES
+    from flask import request, jsonify
+    from werkzeug.security import generate_password_hash
+
+    id_token = request.headers['Authorization'].split('Bearer ')[1]
+    user_details = request.json.get('userDetails')
+    
+    try:
+        decoded_token = auth.verify_id_token(id_token)
+        user_uid = decoded_token['uid']
+        email = decoded_token['email']
+
+        # Check if the user already exists
+        user = get_user_id_from_all_user(email=email)
+        if not user:
+            # Create a new user if not found
+            user = User(
+                google_0auth_uid=user_uid,
+                email=user_details['email'],
+                first_name=user_details['first_name'],
+                last_name=user_details['last_name'],
+                profile_picture=user_details['profile_picture'],
+                password=generate_password_hash("google_oauth_user", method='sha256'),  # Placeholder password
+                date_joined=datetime.utcnow()
+            )
+            user.save()
+
+        # Generate JWT for your Flask app (custom JWT for further API access)
+        access_token = create_access_token(identity=user.username, expires_delta=ACCESS_EXPIRES)
+        refresh_token = create_refresh_token(identity=user.username)
+        response = make_response(jsonify(user.to_dict()))
+        response.headers['Authorization'] = 'Bearer ' + access_token
+        response.headers['X-Refresh-Token'] = refresh_token
+        print("response headers", response.headers)
+        return response
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 
 def get_google_uid_or_create(google_uid: str, email: str) -> Union[User, None]:
