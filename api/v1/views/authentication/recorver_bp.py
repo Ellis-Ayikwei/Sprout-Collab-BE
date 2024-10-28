@@ -38,13 +38,10 @@ def recover_password():
     return jsonify({"message": "Success"}), 200
 
 
-@app_auth.route('/reset_password/<token>', methods=['POST'], strict_slashes=False)
-def reset_password(token):
+@app_auth.route('/reset_password/<token>/<email>', methods=['POST'], strict_slashes=False)
+def reset_password(token, email):
     """ reset password """
     data = request.get_json()
-    if not data:
-        return make_response(jsonify({"error": "Invalid request"}), 400)
-    email = data.get('email')
     if not email:
         return make_response(jsonify({"error": "Email is required"}), 400)
     user_id = get_user_id_from_all_user(email=email)
@@ -56,6 +53,6 @@ def reset_password(token):
     token = user_redis_tokens.get(email, token)
     if not token:
         return make_response(jsonify({"error": "Invalid token"}), 400)
-    user.password = data.get('password')
+    user.update_password(data['password'])
     user.save()
     return make_response(jsonify({"message": "Success"}), 200)
