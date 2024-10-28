@@ -1,6 +1,9 @@
+from typing import Union
 from flask import request, jsonify
 from firebase_admin import auth
 from flask_jwt_extended import create_access_token, create_refresh_token
+from requests import get
+from api.v1.helpers.helper_functions import get_user_id_from_all_user
 from api.v1.views.user import get_users
 from models import storage
 from api.v1.views import app_auth
@@ -20,16 +23,11 @@ def verify_token():
     
     try:
         decoded_token = auth.verify_id_token(id_token)
-        user_id = decoded_token['uid']
+        user_uid = decoded_token['uid']
+        user_email = decoded_token['email']
         print("the decoded token", decoded_token)
-        users_response = get_users()
-        users = users_response.get_json()
-        found_user = None
-        for user in users:
-            if user['id'] == user_id:
-                print(user)
-                found_user = user
-                break
+
+        found_user = get_google_uid_or_create(google_uid=user_uid, email=user_email)
 
         if found_user is None:
             return jsonify({'error': 'User not found'}), 404
@@ -40,3 +38,29 @@ def verify_token():
         return jsonify({'access_token': access_token, 'refresh_token': refresh_token,}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+
+
+def get_google_uid_or_create(google_uid: str, email: str) -> Union[User, None]:
+    """
+    Retrieve the user associated with the given Google UID, or create a new association.
+
+    Parameters:
+    - google_uid (str): The Google UID to be verified or associated with a user.
+    - email (str): The email address to find the user.
+
+    Returns:
+    - User or None: The user object associated with the provided Google UID or None if not found.
+    """
+    user_id = get_user_id_from_all_user(email=email)
+    user = storage.get(User, user_id)
+    if user and user.google_0auth_uid == google_uid:
+        return user
+
+    # If no user found with the Google UID, create a new association
+    if user:
+        user.google_0auth_uid = google_uid
+        storage.save()
+        return user
+
+    return None
