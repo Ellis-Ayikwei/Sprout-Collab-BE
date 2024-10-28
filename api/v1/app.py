@@ -114,6 +114,8 @@ def create_app():
         allow_headers=["Content-Type", "Authorization", "X-Refresh-Token"]
         )
     
+    print(app.url_map)
+    
 
     # Register blueprints
     app.register_blueprint(app_views)
