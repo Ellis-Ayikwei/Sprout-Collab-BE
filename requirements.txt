@@ -39,3 +39,4 @@ flask_bcrypt
 cerberus
 flask_limiter
 redis
+flask_mail

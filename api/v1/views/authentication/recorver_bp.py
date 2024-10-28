@@ -6,7 +6,6 @@ from api.v1.views.user import get_user
 from models import storage
 from models.user import User
 from flask_mail import Mail, Message
-from api.v1.app import mail
 
 user_redis_tokens = redis.StrictRedis(
     host="localhost", port=6379, db=0, decode_responses=True
@@ -14,6 +13,7 @@ user_redis_tokens = redis.StrictRedis(
 
 @app_auth.route('/recover', methods=['POST'])
 def recover_password():
+from api.v1.app import mail
     """ recover password """
     data = request.get_json()
     if not data:
