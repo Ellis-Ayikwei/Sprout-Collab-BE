@@ -13,8 +13,8 @@ user_redis_tokens = redis.StrictRedis(
 
 @app_auth.route('/recover', methods=['POST'])
 def recover_password():
-from api.v1.app import mail
     """ recover password """
+    from api.v1.app import mail
     data = request.get_json()
     if not data:
         return make_response(jsonify({"error": "Invalid request"}), 400)
