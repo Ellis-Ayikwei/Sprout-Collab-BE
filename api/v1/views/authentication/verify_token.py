@@ -30,7 +30,7 @@ def verify_token():
                 found_user = user
                 break
 
-        if not user:
+        if found_user is None:
             return jsonify({'error': 'User not found'}), 404
 
         # Generate JWT for your Flask app (custom JWT for further API access)
