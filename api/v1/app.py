@@ -51,7 +51,9 @@
 
 import datetime
 import os
+import sys
 from flask import Flask, make_response, jsonify, request
+from flask_mail import Mail
 import redis
 
 
@@ -64,6 +66,7 @@ from flask_jwt_extended import JWTManager
 
 # Initialize Bcrypt and CSRF globally
 bcrypt = Bcrypt()
+mail = Mail()
 jwt_redis_blocklist = redis.StrictRedis(
     host="localhost", port=6379, db=0, decode_responses=True
 )
@@ -73,6 +76,13 @@ ACCESS_EXPIRES = datetime.timedelta(hours=1)
 def create_app():
     app = Flask(__name__)
     jwt =JWTManager(app)
+    
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 587
+    app.config['MAIL_USE_TLS'] = True
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
     
     @jwt.token_in_blocklist_loader
     def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
@@ -97,6 +107,7 @@ def create_app():
 
     # Initialize extensions
     bcrypt.init_app(app)
+    mail.init_app(app)
     CORS(app,
         resources={r"sc/api/v1/*": {"origins": "*"}},
         supports_credentials=True,

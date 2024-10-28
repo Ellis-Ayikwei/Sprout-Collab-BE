@@ -30,6 +30,7 @@ from api.v1.views.firebase_operations import *
 from api.v1.views.authentication.logout_bp import *
 from api.v1.views.authentication.login_bp import *
 from api.v1.views.authentication.register_bp import *
+from api.v1.views.authentication.recorver_bp import *
 from api.v1.views.authentication.verify_token import *
 
 

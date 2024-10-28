@@ -1,6 +1,9 @@
 from asyncio import tasks
+import base64
 from datetime import datetime
+import secrets
 import bcrypt
+import redis
 from sqlalchemy.ext.declarative import declarative_base
 #!/usr/bin/python3
 """the module for the user class"""
@@ -23,6 +26,10 @@ from sqlalchemy import (
 )
 
 
+
+user_redis_tokens = redis.StrictRedis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
 
 class User(BaseModel, Base):
     """User class"""
@@ -69,3 +76,9 @@ class User(BaseModel, Base):
 
     def update_password(self, new_password: str):
         self.password = self._hash_password(new_password)
+
+    
+    def generate_reset_token(self):
+        token_bytes = secrets.token_bytes(32)
+        token = base64.urlsafe_b64encode(token_bytes).decode('utf-8')
+        user_redis_tokens.set(self.email, token, ex=3600)
