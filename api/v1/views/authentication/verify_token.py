@@ -1,5 +1,5 @@
 from typing import Union
-from flask import request, jsonify
+from flask import make_response, request, jsonify
 from firebase_admin import auth
 from flask_jwt_extended import create_access_token, create_refresh_token
 from requests import get
@@ -35,7 +35,11 @@ def verify_token():
         # Generate JWT for your Flask app (custom JWT for further API access)
         access_token = create_access_token(identity=found_user.username, expires_delta=ACCESS_EXPIRES)
         refresh_token = create_refresh_token(identity=found_user.username)
-        return jsonify({'access_token': access_token, 'refresh_token': refresh_token,}), 200
+        response = make_response(jsonify(found_user.to_dict()))
+        response.headers['Authorization'] = 'Bearer ' + access_token
+        response.headers['X-Refresh-Token'] = refresh_token
+        print("response headers", response.headers)
+        return response
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
