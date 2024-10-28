@@ -77,15 +77,8 @@ def signup_with_google():
                 date_joined=datetime.utcnow()
             )
             user.save()
-
-        # Generate JWT for your Flask app (custom JWT for further API access)
-        access_token = create_access_token(identity=user.username, expires_delta=ACCESS_EXPIRES)
-        refresh_token = create_refresh_token(identity=user.username)
-        response = make_response(jsonify(user.to_dict()))
-        response.headers['Authorization'] = 'Bearer ' + access_token
-        response.headers['X-Refresh-Token'] = refresh_token
-        print("response headers", response.headers)
-        return response
+            return make_response(jsonify(user.to_dict())), 200
+        return make_response("user already exists"), 409
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
